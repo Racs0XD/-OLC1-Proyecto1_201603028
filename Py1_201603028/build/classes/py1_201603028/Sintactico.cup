@@ -1,5 +1,6 @@
 package py1_201603028;
 import java_cup.runtime.*;
+import py1_201603028.Nodo.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -68,7 +69,7 @@ public static void graficarArbol(Nodo act, String nombre){
 terminal String punto, mas, asterisco, pipe, interrogante, llave_a, llave_c, id, id_ERegular, c_ERegular, c_Especial, punto_coma, dos_puntos, menos, mayorq;
 
 /* Declaración de los símbolos no terminales */
-non terminal String Inicio, Sentencia, PrimerB
+non terminal String Inicio, Sentencia, PrimerB;
 non terminal Nodo NOTACION_ERegular, ERegular;
 
 /* Precedencia */
@@ -82,6 +83,28 @@ start with Inicio;
 Inicio::= Sentencia{:
 :};
 
-Sentencia::= llave_a PrimerB llave_c
-|ERegular;
+Sentencia ::= llave_a PrimerB llave_c;
+
+PrimerB ::= PrimerB ERegular
+|ERegular; 
+
+ERegular::= id:a menos mayorq NOTACION_ERegular:valor{:
+:}punto_coma
+;
+
+NOTACION_ERegular ::= pipe NOTACION_ERegular:a NOTACION_ERegular:b{:
+String anulable;
+if(a.getAnulable()=="A"||b.getAnulable()=="a"){
+anulable = "A";
+}else{
+anulable = "N"
+}
+String primero = a.getPrimero() + b.getPrimero();
+String ultimo = a.getUltimo() + b.getUltimo();
+
+Nodo nuevo_pipe = new Nodo(a,b,"|",parser.contID,0,anulable,primero,ultimo);
+parser.contID++;
+resultado = nuevo_pipe;
+:}
+
 

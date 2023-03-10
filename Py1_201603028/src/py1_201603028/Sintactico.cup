@@ -1,0 +1,33 @@
+package py1_201603028;
+import java_cup.runtime.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+parser code
+{:
+public static int contID=1;
+public static int IDS=1;
+:}
+
+/* Declaración de los símbolos terminales */
+terminal String punto, mas, asterisco, pipe, interrogante, llave_a, llave_c, id, id_ERegular, c_ERegular, c_Especial, punto_coma, dos_puntos, menos, mayorq;
+
+/* Declaración de los símbolos no terminales */
+non terminal String Inicio, Sentencia, PrimerB
+non terminal Nodo NOTACION_ERegular, ERegular;
+
+/* Precedencia */
+precedence left mas, asterisco, interrogante;
+precedence left punto, pipe;
+
+/* Declaración de la producción inicial */
+start with Inicio;
+
+/* Expresiones Regulares */
+Inicio::= Sentencia{:
+:};
+
+Sentencia::= llave_a PrimerB llave_c
+|ERegular;
+

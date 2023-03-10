@@ -5,16 +5,23 @@ import java.io.File;
 
 public class Py1_201603028 {
 
-    
     public static void main(String[] args) {
-        // TODO code application logic here
-       String ruta = "F:/Documentos/USAC/[Compi1]-Oragnización_de_leguakes_y_compiladores_1/[Compi1]_Proyectos/[OLC1]Proyecto1_201603028/Py1_201603028/src/py1_201603028/Lexico.flex";
-        generarLexico(ruta);
+        generarCompilador();
     }
-    public static void generarLexico(String ruta){
-        File archivo= new File(ruta);
-        //JFlex.Main.generate(archivo);
-        
+    private static void generarCompilador() 
+    {
+        try {
+            String ruta = "src/py1_201603028/";
+            String opcFlex[] = {ruta + "Lexico.jflex", "-d", ruta};
+            jflex.Main.generate(opcFlex);
+            
+            
+            String opcCUP[] = {"-destdir", ruta, "-parser", "parser", ruta + "Sintactico.cup"};
+            java_cup.Main.main(opcCUP);
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        }
     }
-    
 }
+

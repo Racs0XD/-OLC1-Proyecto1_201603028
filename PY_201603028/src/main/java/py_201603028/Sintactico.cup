@@ -1,5 +1,5 @@
-package py1_201603028;
-import py1_201603028.Nodo.*;
+package py_201603028;
+import py_201603028.Nodo.*;
 import java_cup.runtime.*;
 import java.io.FileWriter;
 import java.io.IOException;

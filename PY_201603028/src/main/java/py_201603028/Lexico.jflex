@@ -1,4 +1,4 @@
-package py1_201603028;
+package py_201603028;
 
 import java_cup.runtime.*;
 %%
@@ -69,3 +69,4 @@ IDEREGULAR = "{"[a-zA-z0-9_]+"}"
 . {
 System.err.println("Error lexico: "+yytext()+" Linea: "+(yyline)+" columna: "+(yycolumn));
 }
+

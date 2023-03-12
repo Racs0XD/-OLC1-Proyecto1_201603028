@@ -248,43 +248,7 @@ public class IG_Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_AnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AnalizarActionPerformed
-        /*File archivo = new File("archivo.txt");
-        PrintWriter escritura;
-        try {
-            escritura = new PrintWriter(archivo);
-            escritura.print(txt_entradas.getText());
-            escritura.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        try {
-            Reader lectura = new BufferedReader(new FileReader("archivo.txt"));
-            Lexico lexer = new Lexico(lectura);
-            String resultado = "";
-            while (true) {                
-                Tokens tokens = lexer.yylex();
-                if (tokens == null) {
-                    resultado += "FIN";
-                    txt_consola.setText(resultado);
-                    return;
-                }
-                switch (tokens) {
-                    case ERROR:
-                        resultado += "Simbolo no definido\n ";
-                        break;
-                    case Reservadas: case Igual: case Suma: case Resta: case Multiplicacion: case Division: case Identificador: case Numero:
-                        resultado += lexer.lexema + ": Es "+tokens+"\n";
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
 
 
     }//GEN-LAST:event_btn_AnalizarActionPerformed
@@ -306,7 +270,9 @@ public class IG_Principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
+        Operaciones_Ig.generarCompilador();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

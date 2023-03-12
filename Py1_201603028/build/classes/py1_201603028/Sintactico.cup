@@ -14,7 +14,7 @@ public static void graficarArbol(Nodo act, String nombre){
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("src/main/java/ARBOLES/" + nombre + ".dot");
+            fichero = new FileWriter("src/Arboles/" + nombre + ".dot");
             pw = new PrintWriter(fichero);
             pw.println("digraph G{");
             pw.println("rankdir=UD");
@@ -38,9 +38,9 @@ public static void graficarArbol(Nodo act, String nombre){
             //dirección doonde se ecnuentra el compilador de graphviz
             String dotPath = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
             //dirección del archivo dot
-            String fileInputPath = "src/main/java/ARBOLES/" + nombre + ".dot";
+            String fileInputPath = "src/Arboles/" + nombre + ".dot";
             //dirección donde se creara la magen
-            String fileOutputPath = "src/main/java/ARBOLES/" + nombre + ".jpg";
+            String fileOutputPath = "src/Arboles/" + nombre + ".jpg";
             //tipo de conversón
             String tParam = "-Tjpg";
             String tOParam = "-o";

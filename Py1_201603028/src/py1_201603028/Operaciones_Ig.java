@@ -1,5 +1,12 @@
 package py1_201603028;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+
 public class Operaciones_Ig {
     
     static void generarCompilador() 
@@ -15,42 +22,8 @@ public class Operaciones_Ig {
         }
     }
     
-    /*File archivo = new File("archivo.txt");
-        PrintWriter escritura;
-        try {
-            escritura = new PrintWriter(archivo);
-            escritura.print(txt_entradas.getText());
-            escritura.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    static void AbrirArchivo(){
         
-        try {
-            Reader lectura = new BufferedReader(new FileReader("archivo.txt"));
-            Lexico lexer = new Lexico(lectura);
-            String resultado = "";
-            while (true) {                
-                Tokens tokens = lexer.yylex();
-                if (tokens == null) {
-                    resultado += "FIN";
-                    txt_consola.setText(resultado);
-                    return;
-                }
-                switch (tokens) {
-                    case ERROR:
-                        resultado += "Simbolo no definido\n ";
-                        break;
-                    case Reservadas: case Igual: case Suma: case Resta: case Multiplicacion: case Division: case Identificador: case Numero:
-                        resultado += lexer.lexema + ": Es "+tokens+"\n";
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+    }
 
 }

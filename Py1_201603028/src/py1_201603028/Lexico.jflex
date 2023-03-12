@@ -34,7 +34,7 @@ interrogante="?"
 mayorq=">"
 
 //comentarios
-comentarioL=("//"."\n")|("//"."\r")
+comentarioL=\/\/[^\r\n]*
 comentarioML=("<""!"[^\!]*"!"">")
 
 c_ERegular=([\"]{ascii}[\"]|[\"]{letras}[\"]|[\"]{enteros}[\"]|[\"][\"])

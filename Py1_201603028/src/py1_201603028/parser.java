@@ -140,7 +140,14 @@ public class parser extends java_cup.runtime.lr_parser {
 public static int contID=1;
 public static int IDS=1;
 public static Nodo Raiz;
+private Symbol SError;
 
+public void syntax_error(Symbol SError){
+this.SError = SError;
+}
+public Symbol getSErr(){
+return this.SError;
+}
 public static void graficarArbol(Nodo act, String nombre){
         FileWriter fichero = null;
         PrintWriter pw = null;

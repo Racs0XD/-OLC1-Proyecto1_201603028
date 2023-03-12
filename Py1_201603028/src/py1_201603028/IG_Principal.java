@@ -4,7 +4,16 @@
  */
 package py1_201603028;
 
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.io.*;
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import java_cup.runtime.*;
+import javax.swing.JLabel;
 
 /**
  *
@@ -19,7 +28,42 @@ public class IG_Principal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+//===================================================================================================================================================== 
+//====================================================   Funciones Utilizadas en IG   =================================================================
+//=====================================================================================================================================================   
 
+    private void Abrir_Archivo() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File archivo = new File(chooser.getSelectedFile().getAbsolutePath());
+
+        try {
+            String ST = new String(Files.readAllBytes(archivo.toPath()));
+            txt_entradas.setText(ST);
+        } catch (IOException ex) {
+            Logger.getLogger(Operaciones_Ig.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void Analizador() {
+        String ST = txt_entradas.getText();
+        parser pars = new parser(new Lexico(new StringReader(ST)));
+        try {
+            pars.parse();
+            txt_consola.setText(ST);
+            txt_consola.setForeground(new Color(25, 111, 61));
+        } catch (Exception ex) {
+            Symbol sym = pars.getSErr();
+            txt_consola.setText("Error de snitaxis en Linea: " + (sym.right + 1) + " Columna: " + (sym.left+1) + ", Texto: \"" + sym.value + "\"");
+            txt_consola.setForeground(Color.RED);
+        }
+
+    }
+
+
+//===================================================================================================================================================== 
+//==========================================================   Métodos de la IG   =====================================================================
+//===================================================================================================================================================== 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,12 +92,24 @@ public class IG_Principal extends javax.swing.JFrame {
         panel_TArbol3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        statusLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 204, 204));
+        setBackground(new java.awt.Color(0, 204, 204));
 
         txt_entradas.setColumns(20);
         txt_entradas.setRows(5);
+        txt_entradas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_entradasKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_entradasKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_entradasKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(txt_entradas);
 
         txt_consola.setEditable(false);
@@ -188,6 +244,9 @@ public class IG_Principal extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ver Imágenes", "Árboles", "Siguientes", "Transiciones", "Autómatas" }));
 
+        statusLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        statusLabel.setText("Linea: 1 Columna: 1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -201,18 +260,21 @@ public class IG_Principal extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(combo_Archivo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btn_GenerarAutomata)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(69, 69, 69)
                                         .addComponent(btn_Analizar))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                    .addComponent(statusLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(31, 31, 31)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -227,17 +289,23 @@ public class IG_Principal extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(combo_Archivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(56, 56, 56)
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane1)
-                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(56, 56, 56)
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(2, 2, 2)
+                                    .addComponent(statusLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btn_Analizar)
                                 .addComponent(btn_GenerarAutomata)))
                         .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,8 +316,7 @@ public class IG_Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_AnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AnalizarActionPerformed
-        
-
+        Analizador();
 
     }//GEN-LAST:event_btn_AnalizarActionPerformed
 
@@ -258,8 +325,62 @@ public class IG_Principal extends javax.swing.JFrame {
 
         if (selectedItem.equals("Nuevo Archivo")) {
             JOptionPane.showMessageDialog(this, "Mensaje 1");
+            File archivo = new File("archivo.txt");
+            PrintWriter escritura;
+
+            try {
+                escritura = new PrintWriter(archivo);
+                escritura.print(txt_entradas.getText());
+                escritura.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                Reader lectura;
+                lectura = new BufferedReader(new FileReader("archivo.txt"));
+                parser pars;
+                // pars = new parser(new Lexico(new StringReader()));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            /*try {
+                Reader lectura = new BufferedReader(new FileReader("archivo.txt"));
+                Lexico lexer = new Lexico(lectura);
+                String resultado = "";
+                while (true) {
+                    Tokens tokens = lexer.yylex();
+                    if (tokens == null) {
+                        resultado += "FIN";
+                        txt_consola.setText(resultado);
+                        return;
+                    }
+                    switch (tokens) {
+                        case ERROR:
+                            resultado += "Simbolo no definido\n ";
+                            break;
+                        case Reservadas:
+                        case Igual:
+                        case Suma:
+                        case Resta:
+                        case Multiplicacion:
+                        case Division:
+                        case Identificador:
+                        case Numero:
+                            resultado += lexer.lexema + ": Es " + tokens + "\n";
+                            break;
+                        default:
+                            throw new AssertionError();
+                    }
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
         } else if (selectedItem.equals("Abrir Archivo")) {
-            JOptionPane.showMessageDialog(this, "Abrir Archivo");
+            Abrir_Archivo();
         } else if (selectedItem.equals("Guardar Archivo")) {
             JOptionPane.showMessageDialog(this, "Guardar Archivo");
         } else if (selectedItem.equals("Guardar Archivo Como")) {
@@ -267,10 +388,34 @@ public class IG_Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_combo_ArchivoActionPerformed
 
+    private void txt_entradasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_entradasKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_entradasKeyPressed
+
+    private void txt_entradasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_entradasKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_entradasKeyTyped
+
+    private void txt_entradasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_entradasKeyReleased
+        // TODO add your handling code here:
+
+        int caretPosition = txt_entradas.getCaretPosition();
+        int lineNumber = 1;
+        int columnNumber = 1;
+
+        try {
+            lineNumber = txt_entradas.getLineOfOffset(caretPosition) + 1;
+            columnNumber = caretPosition - txt_entradas.getLineStartOffset(lineNumber - 1) + 1;
+        } catch (Exception ex) {
+        }
+
+        statusLabel.setText("Linea: " + lineNumber + ", Columna: " + columnNumber);
+
+    }//GEN-LAST:event_txt_entradasKeyReleased
+
     /**
      * @param args the command line arguments
      */
-    
     public static void main(String args[]) {
         Operaciones_Ig.generarCompilador();
         /* Set the Nimbus look and feel */
@@ -322,6 +467,7 @@ public class IG_Principal extends javax.swing.JFrame {
     private javax.swing.JPanel panel_TArbol1;
     private javax.swing.JPanel panel_TArbol2;
     private javax.swing.JPanel panel_TArbol3;
+    private javax.swing.JLabel statusLabel;
     private javax.swing.JTextArea txt_consola;
     private javax.swing.JTextArea txt_entradas;
     // End of variables declaration//GEN-END:variables

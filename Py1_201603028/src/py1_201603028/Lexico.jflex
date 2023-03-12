@@ -1,71 +1,70 @@
 package py1_201603028;
-
 import java_cup.runtime.*;
+
 %%
 
 %class Lexico
 %cupsym sym
-%cup 
+%cup
 %public
 %unicode
-%line 
+%line
 %column
 %ignorecase
 
+%init{
 
-ESPACIOS = [\t\r\n\f]+
-ASCII = [\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}]
-ESPECIALES = ("\\""n"|"\\""\'"|"\\""\"")
-LETRAS = [a-zA-z]
-ENTEROS = [0-9]
+%init}
 
-LLAVEA = "{"
-LLAVEC = "}"
-PUNTOCOMA = ";"
-PUNTO = "."
-MAS = "+"
-PIPE = "|"
-MENOS = "-"
-ASTERISCO = "*"
-INTERROGANTE = "?"
-MAYORQ = ">"
+espacios=[\t\r\n\f]+
+ascii=[\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}]
+especiales=("\\""n"|"\\""\'"|"\\""\"")
+letras=[a-zA-z]
+enteros=[0-9]
+
+llave_a="{"
+llave_c="}"
+punto_coma=";"
+punto="."
+mas="+"
+pipe="|"
+menos="-"
+asterisco="*"
+interrogante="?"
+mayorq=">"
 
 //comentarios
-COMENTARIOL="//"(.)*[\r\n]
-COMENTARIOML=("<""!"[^\!]*"!"">")
+comentarioL=("//"."\n")|("//"."\r")
+comentarioML=("<""!"[^\!]*"!"">")
 
-CEREGULAR=([\"]{ASCII}[\"]|[\"]{LETRAS}[\"]|[\"]{ENTEROS}[\"]|[\"][\"])
-CESPECIAL={ESPECIALES}
+c_ERegular=([\"]{ascii}[\"]|[\"]{letras}[\"]|[\"]{enteros}[\"]|[\"][\"])
+c_Especial={especiales}
 
-ID = {LETRAS}({LETRAS}|"_"|{ENTEROS})*
-IDEREGULAR = "{"[a-zA-z0-9_]+"}"
+id={letras}({letras}|"_"|{enteros})*
+id_ERegular="{"[a-zA-z0-9_]+"}"
 
 %{
 %}
 
 %%
 
-{ESPACIOS} {}
-{COMENTARIOL} {}
-{COMENTARIOML} {}
+{espacios} {}
+{comentarioL} {}
+{comentarioML} {}
 
-{PUNTO} {return new Symbol(sym.PUNTO,yycolumn,yyline,yytext());}
-{MAS} {return new Symbol(sym.MAS,yycolumn,yyline,yytext());}
-{ASTERISCO} {return new Symbol(sym.ASTERISCO,yycolumn,yyline,yytext());}
-{PIPE} {return new Symbol(sym.PIPE,yycolumn,yyline,yytext());}
-{INTERROGANTE} {return new Symbol(sym.INTERROGANTE,yycolumn,yyline,yytext());}
-{LLAVEA} {return new Symbol(sym.LLAVEA,yycolumn,yyline,yytext());}
-{IDEREGULAR} {return new Symbol(sym.IDEREGULAR,yycolumn,yyline,yytext());}
-{ID} {return new Symbol(sym.ID,yycolumn,yyline,yytext());}
-{CEREGULAR} {return new Symbol(sym.CEREGULAR,yycolumn,yyline,yytext());}
-{CESPECIAL} {return new Symbol(sym.CESPECIAL,yycolumn,yyline,yytext());}
-{PUNTOCOMA} {return new Symbol(sym.PUNTOCOMA,yycolumn,yyline,yytext());}
-{MENOS} {return new Symbol(sym.MENOS,yycolumn,yyline,yytext());}
-{MAYORQ} {return new Symbol(sym.MAYORQ,yycolumn,yyline,yytext());}
-{LLAVEC} {return new Symbol(sym.LLAVEC,yycolumn,yyline,yytext());}
- 
-<YYINITIAL> <EOF> {return new Symbol(sym.EOF,yycolumn,yyline,yytext());}
+{punto} {return new Symbol(sym.punto,yycolumn,yyline,yytext());}
+{mas} {return new Symbol(sym.mas,yycolumn,yyline,yytext());}
+{asterisco} {return new Symbol(sym.asterisco,yycolumn,yyline,yytext());}
+{pipe} {return new Symbol(sym.pipe,yycolumn,yyline,yytext());}
+{interrogante} {return new Symbol(sym.interrogante,yycolumn,yyline,yytext());}
+{llave_a} {return new Symbol(sym.llave_a,yycolumn,yyline,yytext());}
+{id_ERegular} {return new Symbol(sym.id_ERegular,yycolumn,yyline,yytext());}
+{id} {return new Symbol(sym.id,yycolumn,yyline,yytext());}
+{c_ERegular} {return new Symbol(sym.c_ERegular,yycolumn,yyline,yytext());}
+{c_Especial} {return new Symbol(sym.c_Especial,yycolumn,yyline,yytext());}
+{punto_coma} {return new Symbol(sym.punto_coma,yycolumn,yyline,yytext());}
+{menos} {return new Symbol(sym.menos,yycolumn,yyline,yytext());}
+{mayorq} {return new Symbol(sym.mayorq,yycolumn,yyline,yytext());}
+{llave_c} {return new Symbol(sym.llave_c,yycolumn,yyline,yytext());}
+. {return new Symbol(sym.ERROR, yycolumn, yyline, yytext());}
 
-. {
-System.err.println("Error lexico: "+yytext()+" Linea: "+(yyline)+" columna: "+(yycolumn));
-}

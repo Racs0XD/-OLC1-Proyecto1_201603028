@@ -1,8 +1,7 @@
 package py1_201603028;
-import py1_201603028.Nodo.*;
 import java_cup.runtime.*;
+import py1_201603028.Nodo.*;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 parser code
@@ -63,121 +62,122 @@ public static void graficarArbol(Nodo act, String nombre){
         }
     }
 
+
 :}
 
 /* Declaración de los símbolos terminales */
-terminal String PUNTO, MAS, ASTERISCO, PIPE, INTERROGANTE, LLAVEA, LLAVEC, ID, IDEREGULAR, CEREGULAR, CESPECIAL, PUNTOCOMA, MAYORQ;
+terminal String punto, mas, asterisco, pipe, interrogante, llave_a, llave_c, id, id_ERegular, c_ERegular, c_Especial, punto_coma, menos, mayorq,ERROR;
 
 /* Declaración de los símbolos no terminales */
 non terminal String Inicio, Sentencia, PrimerB;
-non terminal Nodo NOTACIONERegular, ERegular;
+non terminal Nodo NOTACION_ERegular, ERegular;
 
 /* Precedencia */
-precedence left MAS, ASTERISCO, INTERROGANTE;
-precedence left PUNTO, PIPE;
+precedence left mas, asterisco, interrogante;
+precedence left punto, pipe;
 
 /* Declaración de la producción inicial */
 start with Inicio;
 
 /* Expresiones Regulares */
 Inicio::= Sentencia{:
-:};
+    :};
 
-Sentencia ::= LLAVEA PrimerB LLAVEC;
+Sentencia ::= llave_a PrimerB llave_c;
 
 PrimerB ::= PrimerB ERegular
-|ERegular; 
+        |ERegular; 
 
-ERegular::= ID:a MAS MAYORQ NOTACIONERegular:valor{:
-:}PUNTOCOMA
+ERegular::= id:a menos mayorq NOTACION_ERegular:valor{:
+:}punto_coma
 ;
 
-NOTACIONERegular ::= PIPE NOTACIONERegular:a NOTACIONERegular:b{:
-String anulable;
-if(a.getAnulable()=="A" || b.getAnulable()=="A"){
-anulable = "A";
-}else{
-anulable = "N"
-}
-String primero = a.getPrimero() + b.getPrimero();
-String ultimo = a.getUltimo() + b.getUltimo();
+NOTACION_ERegular ::= pipe NOTACION_ERegular:a NOTACION_ERegular:b{:
+        String anulable;
+        if(a.getAnulable()=="A" || b.getAnulable()=="A"){
+        anulable = "A";
+        }else{
+        anulable = "N";
+        }
+        String primero = a.getPrimero() + b.getPrimero();
+        String ultimo = a.getUltimo() + b.getUltimo();
 
-Nodo nuevopipe = new Nodo(a,b,"|",parser.contID,0,anulable,primero,ultimo);
-parser.contID++;
-resultado = nuevopipe;
+        Nodo nuevo_pipe = new Nodo(a,b,"|",parser.contID,0,anulable,primero,ultimo);
+        parser.contID++;
+        RESULT = nuevo_pipe;
 :}
-|PUNTO NOTACIONERegular:a NOTACIONERegular:b{:
-String anulable;
-String primero;
-String ultimo;
-if(a.getAnulable()=="A" && b.getAnulable()=="A"){
-anulable="A";
-}else{
-anulable = "N";
-}
-if(a.getAnulable()=="A"){ 
-primero = a.getPrimero()+b.getPrimero();
-}else{
-primero = a.getPrimero();
-}
-if(b.getAnulable()=="A"){
-ultimos = a.getUltimo().b.getUltimo();
-}else{
-ultimo = b.getUltimo();
-}
-Nodo nuevopunto = New Nodo(a,b,".",parser.contID,0,anulable,primero,ultimo);
-parser.contID++;
-resultado = nuevopunto;
-:}
-
-| MAS NOTACIONERegular:a {:
-String primero = a.getPrimero();
-String ultimo = a.getUltimo();
-Nodo nuevomas = New Nodo(null,a,"+",parser.contID,0,"N",primero,ultimo);
-parser.contID++;
-resultado = nuevomas;
+|punto NOTACION_ERegular:a NOTACION_ERegular:b{:
+        String anulable;
+        String primero;
+        String ultimo;
+        if(a.getAnulable()=="A" && b.getAnulable()=="A"){
+        anulable="A";
+        }else{
+        anulable = "N";
+        }
+        if(a.getAnulable()=="A"){ 
+        primero = a.getPrimero()+b.getPrimero();
+        }else{
+        primero = a.getPrimero();
+        }
+        if(b.getAnulable()=="A"){
+        ultimo = a.getUltimo()+b.getUltimo();
+        }else{
+        ultimo = b.getUltimo();
+        }
+        Nodo nuevo_punto = new Nodo(a,b,".",parser.contID,0,anulable,primero,ultimo);
+        parser.contID++;
+        RESULT = nuevo_punto;
 :}
 
-| ASTERISCO NOTACIONERegular:a {:
-String primero = a.getPrimero();
-String ultimo = a.getUltimo();
-Nodo nuevoasterisco = New Nodo(null,a,"*",parser.contID,0,"A",primero,ultimo);
-parser.contID++;
-resultado = nuevoasterisco;
+| mas NOTACION_ERegular:a {:
+        String primero = a.getPrimero();
+        String ultimo = a.getUltimo();
+        Nodo nuevo_mas = new Nodo(null,a,"+",parser.contID,0,"N",primero,ultimo);
+        parser.contID++;
+        RESULT = nuevo_mas;
 :}
 
-| INTERROGANTE NOTACIONERegular:a {:
-String primero = a.getPrimero();
-String ultimo = a.getUltimo();
-Nodo nuevointerrogante = New Nodo(null,a,"?",parser.contID,0,"A",primero,ultimo);
-parser.contID++;
-resultado = nuevointerrogante;
+| asterisco NOTACION_ERegular:a {:
+        String primero = a.getPrimero();
+        String ultimo = a.getUltimo();
+        Nodo nuevo_asterisco = new Nodo(null,a,"*",parser.contID,0,"A",primero,ultimo);
+        parser.contID++;
+        RESULT = nuevo_asterisco;
 :}
 
-| IDEREGULAR:valor {:
-String primero = IDS+",";
-String ultimo = IDS+",";
-Nodo nuevoIdERegular = New Nodo(null,null,valor.replace("{","").replace("}",""),parser.contID,parser.IDS,"N",primero,ultimo);
-parser.IDS++;
-parser.contID++;
-resultado = nuevoIdERegular;
+| interrogante NOTACION_ERegular:a {:
+        String primero = a.getPrimero();
+        String ultimo = a.getUltimo();
+        Nodo nuevo_interrogante = new Nodo(null,a,"?",parser.contID,0,"A",primero,ultimo);
+        parser.contID++;
+        RESULT = nuevo_interrogante;
 :}
 
-| CESPECIAL:valor {:
-String primero = IDS+",";
-String ultimo = IDS+",";
-Nodo nuevoCEspecial = New Nodo(null,null,valor,parser.contID,parser.IDS,"N",primero,ultimo);
-parser.IDS++;
-parser.contID++;
-resultado = nuevoCEspecial;
+| id_ERegular:valor {:
+        String primero = IDS+",";
+        String ultimo = IDS+",";
+        Nodo nuevo_id_ERegular = new Nodo(null,null,valor.replace("{","").replace("}",""),parser.contID,parser.IDS,"N",primero,ultimo);
+        parser.IDS++;
+        parser.contID++;
+        RESULT = nuevo_id_ERegular;
 :}
 
-| CEREGULAR:valor {:
-String primero = IDS+",";
-String ultimo = IDS+",";
-Nodo nuevoCERegular = New Nodo(null,null,valor,parser.contID,parser.IDS,"N",primero,ultimo);
-parser.IDS++;
-parser.contID++;
-resultado = nuevoCERegular;
+| c_Especial:valor {:
+        String primero = IDS+",";
+        String ultimo = IDS+",";
+        Nodo nuevo_c_Especial = new Nodo(null,null,valor,parser.contID,parser.IDS,"N",primero,ultimo);
+        parser.IDS++;
+        parser.contID++;
+        RESULT = nuevo_c_Especial;
 :}
 
+| c_ERegular:valor {:
+        String primero = IDS+",";
+        String ultimo = IDS+",";
+        Nodo nuevo_c_ERegular = new Nodo(null,null,valor,parser.contID,parser.IDS,"N",primero,ultimo);
+        parser.IDS++;
+        parser.contID++;
+        RESULT = nuevo_c_ERegular;
+        :}
+;

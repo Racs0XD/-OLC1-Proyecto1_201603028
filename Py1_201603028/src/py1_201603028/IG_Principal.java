@@ -324,7 +324,15 @@ public class IG_Principal extends javax.swing.JFrame {
         String selectedItem = combo_Archivo.getSelectedItem().toString();
 
         if (selectedItem.equals("Nuevo Archivo")) {
-            JOptionPane.showMessageDialog(this, "Mensaje 1");
+            txt_entradas.setText(null);
+            txt_consola.setText(null);
+            
+            
+        } else if (selectedItem.equals("Abrir Archivo")) {
+            Abrir_Archivo();
+            txt_consola.setText(null);
+        } else if (selectedItem.equals("Guardar Archivo")) {
+            JOptionPane.showMessageDialog(this, "Guardar Archivo");
             File archivo = new File("archivo.txt");
             PrintWriter escritura;
 
@@ -344,45 +352,6 @@ public class IG_Principal extends javax.swing.JFrame {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            /*try {
-                Reader lectura = new BufferedReader(new FileReader("archivo.txt"));
-                Lexico lexer = new Lexico(lectura);
-                String resultado = "";
-                while (true) {
-                    Tokens tokens = lexer.yylex();
-                    if (tokens == null) {
-                        resultado += "FIN";
-                        txt_consola.setText(resultado);
-                        return;
-                    }
-                    switch (tokens) {
-                        case ERROR:
-                            resultado += "Simbolo no definido\n ";
-                            break;
-                        case Reservadas:
-                        case Igual:
-                        case Suma:
-                        case Resta:
-                        case Multiplicacion:
-                        case Division:
-                        case Identificador:
-                        case Numero:
-                            resultado += lexer.lexema + ": Es " + tokens + "\n";
-                            break;
-                        default:
-                            throw new AssertionError();
-                    }
-                }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-        } else if (selectedItem.equals("Abrir Archivo")) {
-            Abrir_Archivo();
-        } else if (selectedItem.equals("Guardar Archivo")) {
-            JOptionPane.showMessageDialog(this, "Guardar Archivo");
         } else if (selectedItem.equals("Guardar Archivo Como")) {
             JOptionPane.showMessageDialog(this, "Guardar Archivo Como");
         }

@@ -16,16 +16,18 @@ import java_cup.runtime.*;
 
 %init}
 
-espacios=[\t\r\n\f]+
+espacios=[\s]+
 ascii=[\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}]
 especiales=("\\""n"|"\\""\'"|"\\""\"")
 letras=[a-zA-z]
 enteros=[0-9]
+reservada="CONJ"
 
 llave_a="{"
 llave_c="}"
 punto_coma=";"
 punto="."
+dos_puntos=":"
 mas="+"
 pipe="|"
 menos="-"
@@ -52,6 +54,8 @@ id_ERegular="{"[a-zA-z0-9_]+"}"
 {comentarioL} {}
 {comentarioML} {}
 
+{reservada} {return new Symbol(sym.reservada,yycolumn,yyline,yytext());}
+{dos_puntos} {return new Symbol(sym.dos_puntos,yycolumn,yyline,yytext());}
 {punto} {return new Symbol(sym.punto,yycolumn,yyline,yytext());}
 {mas} {return new Symbol(sym.mas,yycolumn,yyline,yytext());}
 {asterisco} {return new Symbol(sym.asterisco,yycolumn,yyline,yytext());}

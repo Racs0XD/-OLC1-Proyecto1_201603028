@@ -47,7 +47,8 @@ public class IG_Principal extends javax.swing.JFrame {
 
     private void Analizador() {
         String ST = txt_entradas.getText();
-        parser pars = new parser(new Lexico(new StringReader(ST)));
+        py1_201603028.parser pars;
+        pars = new py1_201603028.parser(new py1_201603028.Lexico(new StringReader(ST)));
         
         try {
             pars.parse();
@@ -135,6 +136,11 @@ public class IG_Principal extends javax.swing.JFrame {
 
         btn_GenerarAutomata.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btn_GenerarAutomata.setText("Generar Autómata");
+        btn_GenerarAutomata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_GenerarAutomataActionPerformed(evt);
+            }
+        });
 
         combo_Archivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Archivo", "Nuevo Archivo", "Abrir Archivo", "Guardar Archivo", "Guardar Archivo Como" }));
         combo_Archivo.addActionListener(new java.awt.event.ActionListener() {
@@ -317,7 +323,6 @@ public class IG_Principal extends javax.swing.JFrame {
 
     private void btn_AnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AnalizarActionPerformed
         Analizador();
-
     }//GEN-LAST:event_btn_AnalizarActionPerformed
 
     private void combo_ArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ArchivoActionPerformed
@@ -380,6 +385,18 @@ public class IG_Principal extends javax.swing.JFrame {
         statusLabel.setText("Linea: " + lineNumber + ", Columna: " + columnNumber);
 
     }//GEN-LAST:event_txt_entradasKeyReleased
+
+    private void btn_GenerarAutomataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarAutomataActionPerformed
+        try {
+            // TODO add your handling code here:
+            String ST = txt_entradas.getText();
+            py1_201603028.parser pars;
+            pars = new py1_201603028.parser(new py1_201603028.Lexico(new StringReader(ST)));
+            pars.parse();
+        } catch (Exception ex) {
+            Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_GenerarAutomataActionPerformed
 
     /**
      * @param args the command line arguments

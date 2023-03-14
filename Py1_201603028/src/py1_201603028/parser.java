@@ -6,7 +6,7 @@
 package py1_201603028;
 
 import java_cup.runtime.*;
-import py1_201603028.Nodo.*;
+import py1_201603028.*;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java_cup.runtime.XMLElement;
@@ -156,19 +156,11 @@ public class parser extends java_cup.runtime.lr_parser {
 public static int contID=1;
 public static int IDS=1;
 public static Nodo Raiz;
-private Symbol SError;
-
-public void syntax_error(Symbol SError){
-this.SError = SError;
-}
-public Symbol getSErr(){
-return this.SError;
-}
 public static void graficarArbol(Nodo act, String nombre){
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("src/Arboles/" + nombre + ".dot");
+            fichero = new FileWriter("src/ARBOLES_201603028/" + nombre + ".dot");
             pw = new PrintWriter(fichero);
             pw.println("digraph G{");
             pw.println("rankdir=UD");
@@ -192,9 +184,9 @@ public static void graficarArbol(Nodo act, String nombre){
             //dirección doonde se ecnuentra el compilador de graphviz
             String dotPath = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
             //dirección del archivo dot
-            String fileInputPath = "src/Arboles/" + nombre + ".dot";
+            String fileInputPath = "src/ARBOLES_201603028/" + nombre + ".dot";
             //dirección donde se creara la magen
-            String fileOutputPath = "src/Arboles/" + nombre + ".jpg";
+            String fileOutputPath = "src/ARBOLES_201603028/" + nombre + ".jpg";
             //tipo de conversón
             String tParam = "-Tjpg";
             String tOParam = "-o";
@@ -215,13 +207,23 @@ public static void graficarArbol(Nodo act, String nombre){
         } finally {
         }
     }
+private Symbol SError;
 
+public void syntax_error(Symbol SError){
+this.SError = SError;
+}
+public Symbol getSErr(){
+return this.SError;
+}
 
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
 class CUP$parser$actions {
+
+
+
   private final parser parser;
 
   /** Constructor */
@@ -359,6 +361,22 @@ class CUP$parser$actions {
 		int valorright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Nodo valor = (Nodo)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 
+        String primero = IDS+"";
+        String ultimo = IDS+"";
+        String prime;
+        String ulti;
+        Nodo nuevo_final = new Nodo(null,null,"#",parser.contID,parser.IDS,"N",primero,ultimo);
+        parser.contID++;
+        if(valor.getAnulable()=="A"){
+            prime=valor.getPrimero()+ultimo;
+        }else{
+            prime=valor.getPrimero();
+        }
+        ulti=nuevo_final.getUltimo();
+        Nodo nueva_raiz = new Nodo(valor,nuevo_final,".",parser.contID,0,"N",primero,ultimo);
+        parser.Raiz=nueva_raiz;
+        graficarArbol(nueva_raiz,a);
+        IDS=1;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$0",7, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }

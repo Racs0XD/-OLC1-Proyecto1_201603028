@@ -166,6 +166,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Generar Aut&#xf3;mata"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_GenerarAutomataActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="combo_Archivo">
       <Properties>

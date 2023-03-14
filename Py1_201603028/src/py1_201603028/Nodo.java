@@ -95,7 +95,7 @@ public class Nodo {
                     + "<tr><td>" + primero + "</td><td>" + valor + "</td><td>" + ultimo + "</td></tr>\n"
                     + "<tr><td>" + id_hojas + "</td></tr>\n"
                     + "</table>\n"
-                    + ">]:\n";
+                    + ">];\n";
         } else {
             etiqueta = "nodo" + id_grafica + " [ label =< \n"
                     + "<table border='0' cellborder='1' color='blue' cellspacing='0'>\n"
@@ -103,7 +103,7 @@ public class Nodo {
                     + "<tr><td>" + primero + "</td><td>" + valor + "</td><td>" + ultimo + "</td></tr>\n"
                     + "<tr><td>" + id_hojas + "</td></tr>\n"
                     + "</table>\n"
-                    + ">]:\n";
+                    + ">];\n";
         }
         if (hizquierdo != null) {
             etiqueta = etiqueta + hizquierdo.getCodigoInterno()
@@ -115,4 +115,5 @@ public class Nodo {
         }
         return etiqueta;
     }
+    
 }

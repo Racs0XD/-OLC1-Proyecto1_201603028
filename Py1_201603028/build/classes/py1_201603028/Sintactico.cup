@@ -73,10 +73,10 @@ public static void graficarArbol(Nodo act, String nombre){
 :}
 
 /* Declaración de los símbolos terminales */
-terminal String reservada, dos_puntos, punto, mas, asterisco, pipe, interrogante, llave_a, llave_c, id, id_ERegular, c_ERegular, c_Especial, punto_coma, menos, mayorq,ERROR;
+terminal String reservada, dos_puntos, punto, mas, asterisco, pipe, interrogante, conj, llave_a, llave_c, id, id_ERegular, c_ERegular, c_Especial, punto_coma, menos, mayorq, E_Prueba;
 
 /* Declaración de los símbolos no terminales */
-non terminal String Inicio, Sentencia, PrimerB, Conjunto;
+non terminal String Inicio, Sentencia, PrimerB, Conjunto, Prueba_E;
 non terminal Nodo NOTACION_ERegular, ERegular;
 
 /* Precedencia */
@@ -96,9 +96,14 @@ PrimerB ::= PrimerB Conjunto
         |Conjunto
         |PrimerB ERegular
         |ERegular
-; 
+        |PrimerB Prueba_E
+        |Prueba_E
+;
 
-Conjunto::= reservada dos_puntos id menos mayorq punto_coma
+Conjunto::= reservada dos_puntos id menos mayorq conj punto_coma
+;
+
+Prueba_E::= id dos_puntos E_Prueba punto_coma
 ;
 
 ERegular::= id:a menos mayorq NOTACION_ERegular:valor{:

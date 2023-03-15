@@ -1,6 +1,7 @@
 package ANALIZADOR;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Nodo {
 
@@ -87,8 +88,11 @@ public class Nodo {
         this.primero = primero;
         this.ultimo = ultimo;
     }
-   
+
     public static ArrayList<String> lista = new ArrayList<String>();
+//===================================================================================================================
+//=======================================   VALORES PARA ARBOL   ====================================================
+//===================================================================================================================
 
     public String getCodigoInterno() {
         String etiqueta;
@@ -120,32 +124,93 @@ public class Nodo {
         return etiqueta;
     }
 
-
+//===================================================================================================================
+//=================================   OBTENCIÓN DE SIGUIENTES   =====================================================
+//===================================================================================================================
     public String getCodigo() {
         String etiqueta;
-        etiqueta = "id --> " + id_hojas + " " + valor;
+        etiqueta = valor + "|" + id_hojas + "|";
         if (id_hojas != 0) {
-           lista.add(etiqueta); 
+            System.out.println(etiqueta);
+            lista.add(etiqueta);
         }
-            
-        
+        if (valor.equals(".")) {
+            Nodo hijoIzquierdo = hizquierdo;
+            Nodo hijoDerecho = derecho;
+            // Obtener los valores de los nodos hijo
+            String valorHijoIzquierdo = hijoIzquierdo.ultimo;
+            String valorHijoDerecho = hijoDerecho.primero;
+            System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
+
+        } else if (valor.equals("*")) {
+            Nodo hijoDerecho = derecho;
+            // Obtener los valores del nodo hijo
+            String valorHijoIzquierdo = hijoDerecho.primero;
+            String valorHijoDerecho = hijoDerecho.primero;
+            System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
+        }
+
         if (hizquierdo != null) {
             etiqueta = etiqueta + hizquierdo.getCodigo();
         }
         if (derecho != null) {
             etiqueta = etiqueta + derecho.getCodigo();
         }
-        
+
         return etiqueta;
     }
-    
-   public ArrayList<String> clearL() {
-        lista.clear();      
+
+    public ArrayList<String> clearL() {
+        lista.clear();
         return null;
     }
-   
-    public ArrayList<String> getL() {
-        return lista;        
+
+    public ArrayList<String> getL() {        
+        return lista;
     }
 
+  
+
+    /*
+    public String getCodigo() {
+        String etiqueta;
+        etiqueta = valor + "|" + id_hojas + "|";
+        if (id_hojas != 0) {
+            System.out.println(etiqueta);
+            lista.add(etiqueta);
+        }
+        if (valor.equals(".")) {
+            Nodo hijoIzquierdo = hizquierdo;
+            Nodo hijoDerecho = derecho;
+            // Obtener los valores de los nodos hijo
+            String valorHijoIzquierdo = hijoIzquierdo.ultimo;
+            String valorHijoDerecho = hijoDerecho.primero;
+            System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
+        } else if (valor.equals("*")) {
+            Nodo hijoDerecho = derecho;
+            // Obtener los valores del nodo hijo
+            String valorHijoIzquierdo = hijoDerecho.primero;
+            String valorHijoDerecho = hijoDerecho.primero;
+            System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
+        } 
+
+        if (hizquierdo != null) {
+            etiqueta = etiqueta + hizquierdo.getCodigo();
+        }
+        if (derecho != null) {
+            etiqueta = etiqueta + derecho.getCodigo();
+        }
+
+        return etiqueta;
+    }
+
+    public ArrayList<String> clearL() {
+        lista.clear();
+        return null;
+    }
+
+    public ArrayList<String> getL() {
+        return lista;
+    }
+     */
 }

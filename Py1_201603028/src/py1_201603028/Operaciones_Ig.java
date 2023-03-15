@@ -12,7 +12,7 @@ public class Operaciones_Ig {
     static void generarCompilador() 
     {
         try {
-            String ruta = "src/py1_201603028/";
+            String ruta = "src/ANALIZADOR/";
             String oFlex[] = {ruta + "Lexico.jflex", "-d", ruta};
             jflex.Main.generate(oFlex);            
             

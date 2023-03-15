@@ -1,4 +1,4 @@
-package py1_201603028;
+package ANALIZADOR;
 import java_cup.runtime.*;
 import py1_201603028.*;
 import java.io.FileWriter;
@@ -35,6 +35,7 @@ public static void graficarArbol(Nodo act, String nombre){
                 }
                 else if (lista.get(0).equals(nombreLista)) {
                     lista.addAll(act.getL()); // Agregamos el valor a la lista
+                    act.clearL();
                     break; // Terminamos el ciclo ya que encontramos la lista
                 }
             }

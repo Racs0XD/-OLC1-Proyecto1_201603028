@@ -1,5 +1,7 @@
 package py1_201603028;
 
+import java.util.ArrayList;
+
 public class Nodo {
 
     public Nodo hizquierdo;
@@ -85,6 +87,7 @@ public class Nodo {
         this.primero = primero;
         this.ultimo = ultimo;
     }
+    ArrayList<String> lista = new ArrayList<String>();
 
     public String getCodigoInterno() {
         String etiqueta;
@@ -115,5 +118,61 @@ public class Nodo {
         }
         return etiqueta;
     }
-    
+
+    public String getCodigo() {
+        String etiqueta;
+        int h;
+        if (hizquierdo == null && derecho == null) {
+            etiqueta = " VALOR -->" + valor + "\n"
+                    + "id hojas --> " + id_hojas + "\n";
+            h = id_hojas;
+            
+            if (h != 0) { // Ignorar los nodos con id_hojas igual a cero
+               System.out.println(h);
+               etiqueta = " VALOR -->" + valor + "\n"
+                    + "id hojas --> " + id_hojas + "\n";
+                lista.add(etiqueta);
+            }
+        } else {
+            etiqueta = " VALOR -->" + valor + "\n"
+                    + "id hojas --> " + id_hojas + "\n";
+            h = id_hojas;
+            if (h != 0) { // Ignorar los nodos con id_hojas igual a cero
+                System.out.println(h);
+                etiqueta = " VALOR -->" + valor + "\n"
+                    + "id hojas --> " + id_hojas + "\n";
+                lista.add(etiqueta);
+            }
+        }
+        if (hizquierdo != null) {
+            etiqueta = etiqueta + hizquierdo.getCodigo();
+        }
+        if (derecho != null) {
+            etiqueta = etiqueta + derecho.getCodigo();
+        }
+        return etiqueta;
+    }
+
+    /* public String getCodigo() {
+        String etiqueta;
+        if (hizquierdo == null && derecho == null) {
+            etiqueta = " VALOR -->" + valor + "\n"
+                    + "id hojas --> " + id_hojas + "\n";
+        } else {
+            etiqueta =" VALOR -->" + valor + "\n" 
+                    + "id hojas --> " + id_hojas + "\n";
+        }
+        if (hizquierdo != null) {
+            etiqueta = etiqueta + hizquierdo.getCodigo();
+        }
+        if (derecho != null) {
+            etiqueta = etiqueta + derecho.getCodigo();
+        }
+        lista.add(etiqueta);
+        return etiqueta;
+    }*/
+    public ArrayList<String> getL() {
+        return lista;
+    }
+
 }

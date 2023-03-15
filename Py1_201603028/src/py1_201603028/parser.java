@@ -9,6 +9,8 @@ import java_cup.runtime.*;
 import py1_201603028.*;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -156,6 +158,8 @@ public class parser extends java_cup.runtime.lr_parser {
 public static int contID=1;
 public static int IDS=1;
 public static Nodo Raiz;
+public static ArrayList<ArrayList<String>> Tabla_Sig = new ArrayList<>();
+
 public static void graficarArbol(Nodo act, String nombre){
         FileWriter fichero = null;
         PrintWriter pw = null;
@@ -166,8 +170,24 @@ public static void graficarArbol(Nodo act, String nombre){
             pw.println("rankdir=UD");
             pw.println("node[shape=box]");
             pw.println("concentrate=true");
-            pw.println(act.getCodigoInterno());
+            pw.println(act.getCodigoInterno());            
             pw.println("}");
+            act.getCodigo();
+            ArrayList<String> nuevaLista = crearListaConNombre(nombre); // Creamos la lista con nombre
+            Tabla_Sig.add(nuevaLista);// Agregamos la lista a la lista de listas con nombre
+            String nombreLista = nombre;
+            for (ArrayList<String> lista : Tabla_Sig) {
+                if (lista.get(0).equals(nombreLista) && lista.size() > 1) { // El primer elemento es el nombre de la lista
+                    // La lista ya ha sido agregada correctamente, no se agregan más elementos
+                    break;
+                }
+                else if (lista.get(0).equals(nombreLista)) {
+                    lista.addAll(act.getL()); // Agregamos el valor a la lista
+                    break; // Terminamos el ciclo ya que encontramos la lista
+                }
+            }
+
+            
         } catch (Exception e) {
             System.out.println("error, no se realizo el archivo"+e);
         } finally {
@@ -179,6 +199,7 @@ public static void graficarArbol(Nodo act, String nombre){
                 e2.printStackTrace();
             }
         }
+
         //para compilar el archivo dot y obtener la imagen
         try {
             //dirección doonde se ecnuentra el compilador de graphviz
@@ -214,6 +235,19 @@ this.SError = SError;
 }
 public Symbol getSErr(){
 return this.SError;
+}
+public static ArrayList<String> crearListaConNombre(String nombreLista) {
+    ArrayList<String> nuevaLista = new ArrayList<>();
+    nuevaLista.add(nombreLista); // Agregamos el nombre de la lista como primer elemento
+    return nuevaLista;
+}
+public static void Siguientes(){
+for (ArrayList<String> lista : Tabla_Sig) {
+    System.out.println("Lista: " + lista.get(0));
+    for (int i = 1; i < lista.size(); i++) {
+        System.out.println(lista.get(i));
+    }
+}
 }
 
 

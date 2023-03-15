@@ -1,17 +1,33 @@
 {
-    //////CONJUNTOS
 
-    CONJ: letra -> a~z;
-    CONJ: digital -> 0~9;
+<!
+	############Este es el archiv facil para el proyecto 1##############
+	NOTA: no se permite modificar
+!>
 
-    /////EXPRESIONES REGULARES
-    ExpReg -> {letra}*|"_"|{letra}{digito};
-    ExpresionReg2 -> .{digito}."."+{digito};
-    RegEx3 -> .{digito}*|"_"|{letra}{digito};
+//AGREGANDO CONJUNTOS
+CONJ: abecedarioMinus -> a~z; // declarando conjunto de letras desde a hasta z en minusculas
+CONJ: digito -> 0~5; // creamos el conjunto de digitos solo para 0, 1, 2, 3, 4 y 5
 
-    %%
-    %%
+//AGREGANDO EXPRESIONES REGULARES
+identificador -> . {abecedarioMinus} * | "_" | {abecedarioMinus} {digito}; //INFIJO: abecedarioMinus ("_"|abecedarioMinus|digito)*
 
-    ExpReg1 : "primerLexemaCokoa";
-    ExpresionReg2 : "34.44"; 
+PRUEBA -> ..||"a""b"?"c"+"a"*{b};
+decimales -> . +{digito}. "." + {digito}; //INFIJO: digito+ "." digito+
+
+
+%%
+%%
+//ESTAS SON LAS PRUEBAS PARA LAS EXPRESIONES REGULARES
+identificador :  "soy_un_id_1"; //correcto
+identificador :  "ComPi1"; //incorrecto
+decimales : "301.59"; //incorrecto
+decimales: "1505.55";//correcto
+
 }
+
+<! YA s4lIO cOMPi 1
+	sale con 100
+	el proyecto 1 #4&$2=?
+	#####RESULTADO SATISFACTORIO PARA ESTE COMENTARIO######
+!>

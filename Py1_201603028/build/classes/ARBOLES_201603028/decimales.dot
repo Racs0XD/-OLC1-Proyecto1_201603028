@@ -2,76 +2,76 @@ digraph G{
 rankdir=UD
 node[shape=box]
 concentrate=true
-nodo18 [ label =< 
+nodo31 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td>N</td></tr>
 <tr><td>4</td><td>.</td><td>4</td></tr>
 <tr><td>0</td></tr>
 </table>
 >];
-nodo16 [ label =< 
+nodo29 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td>N</td></tr>
 <tr><td>1,</td><td>.</td><td>3,</td></tr>
 <tr><td>0</td></tr>
 </table>
 >];
-nodo11 [ label =< 
+nodo24 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td>N</td></tr>
 <tr><td>1,</td><td>+</td><td>1,</td></tr>
 <tr><td>0</td></tr>
 </table>
 >];
-nodo10 [ label =< 
+nodo23 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td>N</td></tr>
 <tr><td>1,</td><td>digito</td><td>1,</td></tr>
 <tr><td>1</td></tr>
 </table>
 >];
-nodo11->nodo10
-nodo16->nodo11
-nodo15 [ label =< 
+nodo24->nodo23
+nodo29->nodo24
+nodo28 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td>N</td></tr>
 <tr><td>2,</td><td>.</td><td>3,</td></tr>
 <tr><td>0</td></tr>
 </table>
 >];
-nodo12 [ label =< 
+nodo25 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td>N</td></tr>
 <tr><td>2,</td><td>"."</td><td>2,</td></tr>
 <tr><td>2</td></tr>
 </table>
 >];
-nodo15->nodo12
-nodo14 [ label =< 
+nodo28->nodo25
+nodo27 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td>N</td></tr>
 <tr><td>3,</td><td>+</td><td>3,</td></tr>
 <tr><td>0</td></tr>
 </table>
 >];
-nodo13 [ label =< 
+nodo26 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td>N</td></tr>
 <tr><td>3,</td><td>digito</td><td>3,</td></tr>
 <tr><td>3</td></tr>
 </table>
 >];
-nodo14->nodo13
-nodo15->nodo14
-nodo16->nodo15
-nodo18->nodo16
-nodo17 [ label =< 
+nodo27->nodo26
+nodo28->nodo27
+nodo29->nodo28
+nodo31->nodo29
+nodo30 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td>N</td></tr>
 <tr><td>4</td><td>#</td><td>4</td></tr>
 <tr><td>4</td></tr>
 </table>
 >];
-nodo18->nodo17
+nodo31->nodo30
 
 }

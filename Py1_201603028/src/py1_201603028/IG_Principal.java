@@ -14,7 +14,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java_cup.runtime.*;
 import javax.swing.JLabel;
-
+import py1_201603028.*;
 /**
  *
  * @author oscar
@@ -387,15 +387,7 @@ public class IG_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_entradasKeyReleased
 
     private void btn_GenerarAutomataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarAutomataActionPerformed
-        try {
-            // TODO add your handling code here:
-            String ST = txt_entradas.getText();
-            py1_201603028.parser pars;
-            pars = new py1_201603028.parser(new py1_201603028.Lexico(new StringReader(ST)));
-            pars.parse();
-        } catch (Exception ex) {
-            Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       py1_201603028.parser.Siguientes();
     }//GEN-LAST:event_btn_GenerarAutomataActionPerformed
 
     /**

@@ -127,9 +127,7 @@ public class Nodo {
 //===================================================================================================================
 //=================================   OBTENCIÓN DE SIGUIENTES   =====================================================
 //===================================================================================================================
-    public static ArrayList<String> lista = new ArrayList<String>();
     public static ArrayList<SIGUIENTES> HOJAS = new ArrayList<SIGUIENTES>();
-    public static ArrayList<String> SIG = new ArrayList<String>();
 
     public String getCodigo() {
         String etiqueta;
@@ -190,7 +188,7 @@ public class Nodo {
                     nuevo.sig += valorHijoDerecho.trim();
                 }
             }
-        } else if (valor.equals("*")) {
+        } else if (valor.equals("*") || valor.equals("+") || valor.equals("?")) {
             Nodo hijoDerecho = derecho;
             // Obtener los valores del nodo hijo
             String valorHijoIzquierdo = hijoDerecho.primero;
@@ -229,12 +227,18 @@ public class Nodo {
             for (SIGUIENTES hoja : HOJAS) {
                 if (hoja.getId() == id_hojas) {
                     hoja.setValor(valor); // modificar el atributo valor del objeto
+                    hoja.setSig(hoja.getSig().replaceAll("\\s*,", ","));
+                    hoja.setSig(hoja.getSig().replaceAll("\\s+", ""));
+
+                    if (hoja.getSig().endsWith(",")) {
+                        hoja.setSig(hoja.getSig().substring(0, hoja.getSig().length() - 1));
+                    }
                     objetoExiste = true;
                     break;
                 }
             }
             if (!objetoExiste) {
-                SIGUIENTES nuevoObjeto = new SIGUIENTES(valor, id_hojas, "");
+                SIGUIENTES nuevoObjeto = new SIGUIENTES(valor, id_hojas, "--");
                 HOJAS.add(nuevoObjeto); // agregar un nuevo objeto a la lista
                 Collections.sort(HOJAS, new Comparator<SIGUIENTES>() {
                     @Override
@@ -250,62 +254,11 @@ public class Nodo {
 
     public ArrayList<String> clearL() {
         HOJAS.clear();
-        lista.clear();
         return null;
     }
 
-    public ArrayList<String> getL() {
-        getH();
-        return lista;
-    }
-
-    public ArrayList<SIGUIENTES> getH() {
-        for (SIGUIENTES hoja : HOJAS) {
-            System.out.println(hoja.toString());
-        }
+    public ArrayList<SIGUIENTES> getL() {
         return HOJAS;
     }
 
-    /*
-    public String getCodigo() {
-        String etiqueta;
-        etiqueta = valor + "|" + id_hojas + "|";
-        if (id_hojas != 0) {
-            System.out.println(etiqueta);
-            lista.add(etiqueta);
-        }
-        if (valor.equals(".")) {
-            Nodo hijoIzquierdo = hizquierdo;
-            Nodo hijoDerecho = derecho;
-            // Obtener los valores de los nodos hijo
-            String valorHijoIzquierdo = hijoIzquierdo.ultimo;
-            String valorHijoDerecho = hijoDerecho.primero;
-            System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
-        } else if (valor.equals("*")) {
-            Nodo hijoDerecho = derecho;
-            // Obtener los valores del nodo hijo
-            String valorHijoIzquierdo = hijoDerecho.primero;
-            String valorHijoDerecho = hijoDerecho.primero;
-            System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
-        } 
-
-        if (hizquierdo != null) {
-            etiqueta = etiqueta + hizquierdo.getCodigo();
-        }
-        if (derecho != null) {
-            etiqueta = etiqueta + derecho.getCodigo();
-        }
-
-        return etiqueta;
-    }
-
-    public ArrayList<String> clearL() {
-        lista.clear();
-        return null;
-    }
-
-    public ArrayList<String> getL() {
-        return lista;
-    }
-     */
 }

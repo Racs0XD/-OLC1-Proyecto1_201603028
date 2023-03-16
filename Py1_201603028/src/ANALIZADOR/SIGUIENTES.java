@@ -47,7 +47,7 @@ public class SIGUIENTES {
 
     @Override
     public String toString() {
-        return "Valor: " + valor + ", ID: " + id + ", Siguientes: " + sig;
+        return valor  +""+ id  +""+ sig;
     }
 
 }

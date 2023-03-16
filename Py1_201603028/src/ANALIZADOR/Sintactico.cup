@@ -106,7 +106,7 @@ public static ArrayList<String> crearListaConNombre(String nombreLista) {
 
 public static void Siguientes(){
 Reportes rep = new Reportes();
-   rep.Graficar_Tabla_Sig(Tabla_Sig);
+rep.Graficar_Tabla_Sig(Tabla_Sig);
 
 }
 

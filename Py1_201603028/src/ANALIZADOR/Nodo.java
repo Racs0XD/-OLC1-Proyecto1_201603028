@@ -227,9 +227,21 @@ public class Nodo {
             for (SIGUIENTES hoja : HOJAS) {
                 if (hoja.getId() == id_hojas) {
                     hoja.setValor(valor); // modificar el atributo valor del objeto
-                    hoja.setSig(hoja.getSig().replaceAll("\\s*,", ","));
-                    hoja.setSig(hoja.getSig().replaceAll("\\s+", ""));
-
+                    String str = hoja.getSig();
+                    String[] strArray = str.split(",");
+                    ArrayList<Integer> list = new ArrayList<Integer>();
+                    for (String s : strArray) {
+                        if (!s.trim().isEmpty()) {
+                            try {
+                                list.add(Integer.parseInt(s.trim()));
+                            } catch (NumberFormatException e) {
+                                // No hacer nada si no es un número válido
+                            }
+                        }
+                    }
+                    Collections.sort(list);
+                    String sortedStr = list.toString().replaceAll("[\\[\\]\\s]", "");
+                    hoja.setSig(sortedStr);
                     if (hoja.getSig().endsWith(",")) {
                         hoja.setSig(hoja.getSig().substring(0, hoja.getSig().length() - 1));
                     }

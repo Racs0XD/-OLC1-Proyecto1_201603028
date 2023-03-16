@@ -20,8 +20,6 @@ public class Reportes {
         String nombre = "";
 
         for (ArrayList<Object> lista : Tabla_Sig) {
-            System.out.println(lista.get(0)); // Imprime el nombre de la lista
-
             FileWriter fichero = null;
             PrintWriter pw = null;
             try {
@@ -39,12 +37,10 @@ public class Reportes {
                 for (int i = 1; i < lista.size(); i++) {
                     Object elemento = lista.get(i);
                     if (elemento instanceof ArrayList) { // Si el elemento es una lista, imprime sus elementos uno por uno
-                        System.out.print("[");
                         ArrayList<Object> listaInterna = (ArrayList<Object>) elemento;
                         for (int j = 0; j < listaInterna.size(); j++) {
                             System.out.print(listaInterna.get(j));
-                            if (j < listaInterna.size() - 1) {                                
-                                System.out.print("\n ");
+                            if (j < listaInterna.size() - 1) {                         
                             }
                             SIGUIENTES sigObject = (SIGUIENTES) listaInterna.get(j);
                                 String val = sigObject.valor;
@@ -53,9 +49,7 @@ public class Reportes {
 
                                 pw.println("<tr><td>" + val + "</td><td>" + id + "</td><td>" + sig + "</td></tr>\n");
                         }
-                        System.out.println("]");
                     } else { // Si el elemento no es una lista, imprime su valor
-                        System.out.println(elemento);
                     }
                 }
                 pw.println("</table>\n" + ">];\n");

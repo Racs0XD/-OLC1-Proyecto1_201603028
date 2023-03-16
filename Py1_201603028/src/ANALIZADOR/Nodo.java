@@ -1,7 +1,9 @@
 package ANALIZADOR;
 
 import java.util.ArrayList;
-import java.util.List;
+import ANALIZADOR.*;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Nodo {
 
@@ -89,11 +91,9 @@ public class Nodo {
         this.ultimo = ultimo;
     }
 
-    public static ArrayList<String> lista = new ArrayList<String>();
 //===================================================================================================================
 //=======================================   VALORES PARA ARBOL   ====================================================
 //===================================================================================================================
-
     public String getCodigoInterno() {
         String etiqueta;
         if (hizquierdo == null && derecho == null) {
@@ -127,27 +127,95 @@ public class Nodo {
 //===================================================================================================================
 //=================================   OBTENCIÓN DE SIGUIENTES   =====================================================
 //===================================================================================================================
+    public static ArrayList<String> lista = new ArrayList<String>();
+    public static ArrayList<SIGUIENTES> HOJAS = new ArrayList<SIGUIENTES>();
+    public static ArrayList<String> SIG = new ArrayList<String>();
+
     public String getCodigo() {
         String etiqueta;
         etiqueta = valor + "|" + id_hojas + "|";
-        if (id_hojas != 0) {
-            System.out.println(etiqueta);
-            lista.add(etiqueta);
-        }
+        SIGUIENTES val = new SIGUIENTES(valor, id_hojas, "");
+        boolean encontrado = false; // variable para indicar si se ha encontrado el ID en la lista
+
         if (valor.equals(".")) {
             Nodo hijoIzquierdo = hizquierdo;
             Nodo hijoDerecho = derecho;
             // Obtener los valores de los nodos hijo
             String valorHijoIzquierdo = hijoIzquierdo.ultimo;
             String valorHijoDerecho = hijoDerecho.primero;
-            System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
+            //System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
+            // Obtener los números separados de valorHijoIzquierdo
+            String[] numeros = valorHijoIzquierdo.split(",");
+
+            // Iterar sobre cada número y buscar si existe en la lista
+            for (String numero : numeros) {
+                int idBuscado = Integer.parseInt(numero.trim()); // convertir a entero
+                encontrado = false;
+                for (SIGUIENTES siguiente : HOJAS) {
+                    if (siguiente.id == idBuscado) {
+                        siguiente.sig += (siguiente.sig.isEmpty() ? "" : ",") + valorHijoDerecho; // agregar valorHijoDerecho a la propiedad sig
+                        encontrado = true;
+                        break; // salir del loop si se ha encontrado el ID
+                    }
+                }
+                if (!encontrado) {
+                    SIGUIENTES nuevo = new SIGUIENTES(valor, idBuscado, valorHijoDerecho);
+                    HOJAS.add(nuevo);
+                }
+            }
 
         } else if (valor.equals("*")) {
             Nodo hijoDerecho = derecho;
             // Obtener los valores del nodo hijo
             String valorHijoIzquierdo = hijoDerecho.primero;
             String valorHijoDerecho = hijoDerecho.primero;
-            System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
+            // System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
+            // Obtener los números separados de valorHijoIzquierdo
+            String[] numeros = valorHijoIzquierdo.split(",");
+
+            // Iterar sobre cada número y buscar si existe en la lista
+            for (String numero : numeros) {
+                int idBuscado = Integer.parseInt(numero.trim()); // convertir a entero
+                encontrado = false;
+                for (SIGUIENTES siguiente : HOJAS) {
+                    if (siguiente.id == idBuscado) {
+                        siguiente.sig += (siguiente.sig.isEmpty() ? "" : ",") + valorHijoDerecho; // agregar valorHijoDerecho a la propiedad sig
+                        encontrado = true;
+                        break; // salir del loop si se ha encontrado el ID
+                    }
+                }
+                if (!encontrado) {
+                    SIGUIENTES nuevo = new SIGUIENTES("", idBuscado, "");
+                    HOJAS.add(nuevo);
+                    nuevo.sig += valorHijoDerecho.trim();
+                }
+            }
+        } else if (valor.equals("*")) {
+            Nodo hijoDerecho = derecho;
+            // Obtener los valores del nodo hijo
+            String valorHijoIzquierdo = hijoDerecho.primero;
+            String valorHijoDerecho = hijoDerecho.ultimo;
+            // System.out.println(valorHijoIzquierdo + "|" + valorHijoDerecho);
+            // Obtener los números separados de valorHijoIzquierdo
+            String[] numeros = valorHijoIzquierdo.split(",");
+
+            // Iterar sobre cada número y buscar si existe en la lista
+            for (String numero : numeros) {
+                int idBuscado = Integer.parseInt(numero.trim()); // convertir a entero
+                encontrado = false;
+                for (SIGUIENTES siguiente : HOJAS) {
+                    if (siguiente.id == idBuscado) {
+                        siguiente.sig += (siguiente.sig.isEmpty() ? "" : ",") + valorHijoDerecho.trim(); // agregar valorHijoDerecho a la propiedad sig
+                        encontrado = true;
+                        break; // salir del loop si se ha encontrado el ID
+                    }
+                }
+                if (!encontrado) {
+                    SIGUIENTES nuevo = new SIGUIENTES("", idBuscado, "");
+                    HOJAS.add(nuevo);
+                    nuevo.sig += valorHijoDerecho.trim();
+                }
+            }
         }
 
         if (hizquierdo != null) {
@@ -156,20 +224,47 @@ public class Nodo {
         if (derecho != null) {
             etiqueta = etiqueta + derecho.getCodigo();
         }
+        if (id_hojas != 0) {
+            boolean objetoExiste = false;
+            for (SIGUIENTES hoja : HOJAS) {
+                if (hoja.getId() == id_hojas) {
+                    hoja.setValor(valor); // modificar el atributo valor del objeto
+                    objetoExiste = true;
+                    break;
+                }
+            }
+            if (!objetoExiste) {
+                SIGUIENTES nuevoObjeto = new SIGUIENTES(valor, id_hojas, "");
+                HOJAS.add(nuevoObjeto); // agregar un nuevo objeto a la lista
+                Collections.sort(HOJAS, new Comparator<SIGUIENTES>() {
+                    @Override
+                    public int compare(SIGUIENTES hoja1, SIGUIENTES hoja2) {
+                        return Integer.compare(hoja1.getId(), hoja2.getId());
+                    }
+                });
+            }
+        }
 
         return etiqueta;
     }
 
     public ArrayList<String> clearL() {
+        HOJAS.clear();
         lista.clear();
         return null;
     }
 
-    public ArrayList<String> getL() {        
+    public ArrayList<String> getL() {
+        getH();
         return lista;
     }
 
-  
+    public ArrayList<SIGUIENTES> getH() {
+        for (SIGUIENTES hoja : HOJAS) {
+            System.out.println(hoja.toString());
+        }
+        return HOJAS;
+    }
 
     /*
     public String getCodigo() {

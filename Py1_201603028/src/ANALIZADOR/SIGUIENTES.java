@@ -9,11 +9,11 @@ package ANALIZADOR;
  * @author oscar
  */
 public class SIGUIENTES {
+
     public String valor;
     public int id;
     public String sig;
 
-    
     public String getValor() {
         return valor;
     }
@@ -37,12 +37,17 @@ public class SIGUIENTES {
     public void setSig(String sig) {
         this.sig = sig;
     }
-    
+
     public SIGUIENTES(String valor, int id, String sig) {
         this.valor = valor;
         this.id = id;
         this.sig = sig;
     }
-
     
+
+    @Override
+    public String toString() {
+        return "Valor: " + valor + ", ID: " + id + ", Siguientes: " + sig;
+    }
+
 }

@@ -5,7 +5,6 @@
 package py1_201603028;
 
 import java.awt.Color;
-import java.awt.event.KeyEvent;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.logging.Level;
@@ -13,9 +12,10 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java_cup.runtime.*;
-import javax.swing.JLabel;
 import py1_201603028.*;
 import ANALIZADOR.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author oscar
@@ -33,16 +33,60 @@ public class IG_Principal extends javax.swing.JFrame {
 //====================================================   Funciones Utilizadas en IG   =================================================================
 //=====================================================================================================================================================   
 
-    private void Abrir_Archivo() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
-        File archivo = new File(chooser.getSelectedFile().getAbsolutePath());
+    private File ubicacionArchivo; // Variable miembro para almacenar la ubicación del archivo
 
+// Función que permite abrir un archivo y mostrar su contenido en un componente de texto
+    private void Abrir_Archivo() {
+        JFileChooser chooser = new JFileChooser(); // Crear un JFileChooser para seleccionar el archivo
+        chooser.showOpenDialog(null); // Mostrar el diálogo para seleccionar archivo
+        File archivo = new File(chooser.getSelectedFile().getAbsolutePath()); // Obtener el archivo seleccionado
+        ubicacionArchivo = archivo; // Asignar la ubicación seleccionada a la variable miembro
         try {
+            // Leer el contenido del archivo y convertirlo en una cadena
             String ST = new String(Files.readAllBytes(archivo.toPath()));
-            txt_entradas.setText(ST);
+            txt_entradas.setText(ST); // Mostrar el contenido en un componente de texto
         } catch (IOException ex) {
             Logger.getLogger(Operaciones_Ig.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+// Función que permite guardar un archivo en su misma ubicación con formato .ocl
+    private void guardarArchivo() {
+        JFileChooser chooser = new JFileChooser(); // Crear un JFileChooser para seleccionar la ubicación y nombre del archivo
+        chooser.setSelectedFile(new File(ubicacionArchivo.getAbsolutePath())); // Establecer la extensión .ocl por defecto y la ubicación predeterminada
+        int returnVal = chooser.showSaveDialog(null); // Mostrar el diálogo para guardar archivo
+        if (returnVal == JFileChooser.APPROVE_OPTION) { // Si se seleccionó la opción de guardar
+            File archivo = chooser.getSelectedFile(); // Obtener la ubicación y nombre del archivo
+            try {
+// Escribir el contenido del componente de texto en el archivo
+                BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
+                writer.write(txt_entradas.getText());
+                writer.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Operaciones_Ig.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+// Función que permite guardar un archivo con un nombre y ubicación deseada con formato .ocl
+    private void guardarArchivoComo() {
+        JFileChooser chooser = new JFileChooser(); // Crear un JFileChooser para seleccionar la ubicación y nombre del archivo
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".ocl", "ocl"); // Establecer el filtro para la extensión .ocl
+        chooser.setFileFilter(filter); // Aplicar el filtro al JFileChooser
+        int returnVal = chooser.showSaveDialog(null); // Mostrar el diálogo para guardar archivo
+        if (returnVal == JFileChooser.APPROVE_OPTION) { // Si se seleccionó la opción de guardar
+            File archivo = chooser.getSelectedFile(); // Obtener la ubicación y nombre del archivo
+            if (!archivo.getName().endsWith(".ocl")) { // Si el nombre del archivo no tiene la extensión .ocl
+                archivo = new File(archivo.getAbsolutePath() + ".ocl"); // Agregar la extensión .ocl al nombre del archivo
+            }
+            try {
+                // Escribir el contenido del componente de texto en el archivo
+                BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
+                writer.write(txt_entradas.getText());
+                writer.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Operaciones_Ig.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -50,7 +94,7 @@ public class IG_Principal extends javax.swing.JFrame {
         String ST = txt_entradas.getText();
         ANALIZADOR.parser pars;
         pars = new ANALIZADOR.parser(new ANALIZADOR.Lexico(new StringReader(ST)));
-        
+
         try {
             pars.parse();
             txt_consola.setText(ST);
@@ -337,28 +381,9 @@ public class IG_Principal extends javax.swing.JFrame {
             Abrir_Archivo();
             txt_consola.setText(null);
         } else if (selectedItem.equals("Guardar Archivo")) {
-            JOptionPane.showMessageDialog(this, "Guardar Archivo");
-            File archivo = new File("archivo.txt");
-            PrintWriter escritura;
-
-            try {
-                escritura = new PrintWriter(archivo);
-                escritura.print(txt_entradas.getText());
-                escritura.close();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            try {
-                Reader lectura;
-                lectura = new BufferedReader(new FileReader("archivo.txt"));
-                parser pars;
-                // pars = new parser(new Lexico(new StringReader()));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(IG_Principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            guardarArchivo();
         } else if (selectedItem.equals("Guardar Archivo Como")) {
-            JOptionPane.showMessageDialog(this, "Guardar Archivo Como");
+            guardarArchivoComo();
         }
     }//GEN-LAST:event_combo_ArchivoActionPerformed
 
@@ -388,7 +413,7 @@ public class IG_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_entradasKeyReleased
 
     private void btn_GenerarAutomataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarAutomataActionPerformed
-       ANALIZADOR.parser.Siguientes();
+        ANALIZADOR.parser.Siguientes();
     }//GEN-LAST:event_btn_GenerarAutomataActionPerformed
 
     /**

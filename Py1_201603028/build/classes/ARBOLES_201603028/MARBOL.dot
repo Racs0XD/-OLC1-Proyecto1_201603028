@@ -1,0 +1,85 @@
+digraph G{
+rankdir=UD
+node[shape=box]
+concentrate=true
+nodo35 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>N</td></tr>
+<tr><td>5</td><td>.</td><td>5</td></tr>
+<tr><td>0</td></tr>
+</table>
+>];
+nodo33 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>N</td></tr>
+<tr><td>1,2,</td><td>.</td><td>3,4,</td></tr>
+<tr><td>0</td></tr>
+</table>
+>];
+nodo30 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>N</td></tr>
+<tr><td>1,2,</td><td>.</td><td>3,</td></tr>
+<tr><td>0</td></tr>
+</table>
+>];
+nodo28 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>N</td></tr>
+<tr><td>1,2,</td><td>|</td><td>1,2,</td></tr>
+<tr><td>0</td></tr>
+</table>
+>];
+nodo26 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>N</td></tr>
+<tr><td>1,</td><td>"+"</td><td>1,</td></tr>
+<tr><td>1</td></tr>
+</table>
+>];
+nodo28->nodo26
+nodo27 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>N</td></tr>
+<tr><td>2,</td><td>"-"</td><td>2,</td></tr>
+<tr><td>2</td></tr>
+</table>
+>];
+nodo28->nodo27
+nodo30->nodo28
+nodo29 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>N</td></tr>
+<tr><td>3,</td><td>D</td><td>3,</td></tr>
+<tr><td>3</td></tr>
+</table>
+>];
+nodo30->nodo29
+nodo33->nodo30
+nodo32 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>A</td></tr>
+<tr><td>4,</td><td>*</td><td>4,</td></tr>
+<tr><td>0</td></tr>
+</table>
+>];
+nodo31 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>N</td></tr>
+<tr><td>4,</td><td>D</td><td>4,</td></tr>
+<tr><td>4</td></tr>
+</table>
+>];
+nodo32->nodo31
+nodo33->nodo32
+nodo35->nodo33
+nodo34 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>N</td></tr>
+<tr><td>5</td><td>#</td><td>5</td></tr>
+<tr><td>5</td></tr>
+</table>
+>];
+nodo35->nodo34
+
+}

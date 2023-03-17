@@ -195,7 +195,6 @@ public static void graficarArbol(Nodo act, String nombre){
             if (!listaExiste) {
                 Tabla_Sig.add(listaConNombre); // Agregar una nueva lista con nombre
             }
-
             act.clearL();
 
         } catch (Exception e) {
@@ -255,7 +254,6 @@ public static ArrayList<String> crearListaConNombre(String nombreLista) {
 public static void Siguientes(){
 Reportes rep = new Reportes();
 rep.Graficar_Tabla_Sig(Tabla_Sig);
-
 }
 
 

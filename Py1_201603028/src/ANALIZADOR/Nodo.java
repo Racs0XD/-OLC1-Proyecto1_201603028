@@ -269,6 +269,7 @@ public class Nodo {
     public ArrayList<String> clearL() {
         HOJAS.clear();
         REDUCCIONES.clear();
+        cont_Estado = 0;
         return null;
     }
 
@@ -299,8 +300,6 @@ public class Nodo {
                 valorHijoIzquierdo = valorHijoIzquierdo.substring(0, valorHijoIzquierdo.length() - 1);
             }
 
-            // Separar por comas los valores del estado S0
-            String[] numeros = valorHijoIzquierdo.split(",");
             if (cont_Estado == 0) {
                 // Definir Cabeza
                 String[] Cabeza = {"Estado"};
@@ -310,7 +309,10 @@ public class Nodo {
                 for (SIGUIENTES sig : HOJAS) {
                     String valor = sig.getValor();
                     if (!valores.contains(valor)) {
-                        valores.add(valor);
+                        if (!valor.equals("#")) {
+                            valores.add(valor);
+                        }
+
                     }
                 }
 
@@ -321,22 +323,61 @@ public class Nodo {
                 ESTADOS estadosO = new ESTADOS(Cabeza, valoresArray);
                 REDUCCIONES.add(estadosO);
 
-                //Crear un ArrayList para almacenar los terminales
-                ArrayList<String> terminalesList = new ArrayList<String>();
-                for (int i = 0; i < numeros.length; i++) {
-                    for (SIGUIENTES s : HOJAS) {
-                        System.out.println("------------>"+s.getId());
-                        //Se encontró un SIGUIENTE para el número actual
-                        if (Integer.parseInt(numeros[i]) == s.getId()) {
-                            //Agregar el SIGUIENTE a la lista de terminales  
-                            terminalesList.add(s.getSig());                     
-                        } 
-                    }
-                    terminalesList.add("--");  
-                }
-                String[] terminales = terminalesList.toArray(new String[0]);
                 //Crea el estado inicial S0
                 String[] estados = {"S" + cont_Estado, valorHijoIzquierdo};
+
+                // Separar por comas los valores del estado S0
+                String[] numeros = valorHijoIzquierdo.split(",");
+                //Crear un ArrayList para almacenar los terminales
+                ArrayList<String> terminalesList = new ArrayList<String>();
+                ArrayList<String[]> temporales = new ArrayList<String[]>();
+                for (int i = 0; i < numeros.length; i++) {
+                    for (SIGUIENTES s : HOJAS) {
+                        //Se encontró un SIGUIENTE para el número actual
+                        if (Integer.parseInt(numeros[i]) == s.getId()) {
+                            //Agregar siguientes junto a su Valor para uniones
+                            String[] tempTer = {s.getValor(), s.getSig()};
+                            temporales.add(tempTer);
+                            break;
+                        }
+
+                    }
+                }
+                ArrayList<String[]> terminalesFinal = new ArrayList<String[]>();
+                for (String[] temp : temporales) {
+                    String valor = temp[0];
+                    String sig = temp[1];
+
+                    boolean encontrado = false;
+
+                    // Buscar si el elemento ya existe en el ArrayList 
+                    for (String[] elementoFinal : terminalesFinal) {
+                        if (elementoFinal[0].equals(valor)) {
+                            // Fusionar los valores del elemento duplicado
+                            // Separar por comas los valores del estado S0
+                            String[] sig_Separados = sig.split(",");
+                            for (int i = 0; i < sig_Separados.length; i++) {
+                                if (!elementoFinal[1].equals(sig_Separados[i])) {
+                                    elementoFinal[1] += "," + sig_Separados[i];
+                                }
+                            }
+                            encontrado = true;
+                            break;
+                        }
+                    }
+
+                    // Agregar el elemento al ArrayList final si no existe
+                    if (!encontrado) {
+                        terminalesFinal.add(temp);
+                    }
+
+                }
+                for (String[] elementoFinal : terminalesFinal) {
+                    terminalesList.add(elementoFinal[0] + "=" + elementoFinal[1]);
+                }
+
+                String[] terminales = terminalesList.toArray(new String[0]);
+
                 // Crear el objeto ESTADOS una sola vez
                 ESTADOS estadosObj = null;
                 estadosObj = new ESTADOS(estados, terminales);
@@ -344,21 +385,20 @@ public class Nodo {
                 cont_Estado++; // Incrementar el contador de estados
 
             }
-
         }
-
-        if (hizquierdo != null) {
-            etiqueta = etiqueta + hizquierdo.getSO();
-        }
-        if (derecho != null) {
-            etiqueta = etiqueta + derecho.getSO();
-        }
-
         return etiqueta;
     }
 
     public String Reducciones() {
+
         String etiqueta = "";
+        Nodo hijoIzquierdo = hizquierdo;
+        String valorHijoIzquierdo = hijoIzquierdo.primero;
+        //Elimina las , al final del String
+        if (valorHijoIzquierdo.endsWith(",")) {
+            valorHijoIzquierdo = valorHijoIzquierdo.substring(0, valorHijoIzquierdo.length() - 1);
+        }
+        String[] numeros = valorHijoIzquierdo.split(",");
         //Bucle para obener el estado inicial y proceder a crear los demás estados
         for (ESTADOS estado : REDUCCIONES) {
 
@@ -366,11 +406,13 @@ public class Nodo {
             ArrayList<String> terminalesList = new ArrayList<String>();
             for (int i = 0; i < numeros.length; i++) {
                 for (SIGUIENTES s : HOJAS) {
+                    //Se encontró un SIGUIENTE para el número actual
                     if (Integer.parseInt(numeros[i]) == s.getId()) {
-                        //Se encontró un SIGUIENTE para el número actual
-                        terminalesList.add(s.getSig()); //Agregar el SIGUIENTE a la lista de terminales                      
+                        //Agregar el SIGUIENTE a la lista de terminales  
+                        terminalesList.add(s.getSig());
                     }
                 }
+                terminalesList.add("--");
             }
             // Convertir la lista de terminales en un array de Strings
             String[] terminales = terminalesList.toArray(String[]::new);

@@ -5,6 +5,7 @@ import ANALIZADOR.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class Nodo {
 
@@ -324,7 +325,7 @@ public class Nodo {
             REDUCCIONES.add(estadosO);*/
 
             //Crea el estado inicial S0
-            String[] estados = {"S" + cont_Estado, valorHijoIzquierdo};
+            String[] estados = {"S0", valorHijoIzquierdo};
 
             // Separar por comas los valores del estado S0
             String[] numeros = valorHijoIzquierdo.split(",");
@@ -346,7 +347,6 @@ public class Nodo {
             for (String[] temp : temporales) {
                 String valor = temp[0];
                 String sig = temp[1];
-
                 boolean encontrado = false;
 
                 // Buscar si el elemento ya existe en el ArrayList 
@@ -371,9 +371,23 @@ public class Nodo {
                 }
 
             }
-            for (String[] elementoFinal : terminalesFinal) {
-                terminalesList.add(elementoFinal[0] + "=" + elementoFinal[1]);
-            }
+
+            HashMap<String, String> estadosDicc = new HashMap<String, String>(); // Inicializar diccionario
+for (String[] elementoFinal : terminalesFinal) {
+    boolean pb = true;
+    if (!valorHijoIzquierdo.equals(elementoFinal[1])) {
+        cont_Estado++; // Incrementar el contador de estados
+        String estado = estadosDicc.get(elementoFinal[1]); // Obtener estado asociado al elementoFinal[1] actual
+        if (estado != null) { // Si elementoFinal[1] ya está en el diccionario
+            terminalesList.add("Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estado);
+        } else { // Si elementoFinal[1] no está en el diccionario
+            estado = "S" + cont_Estado;
+            estadosDicc.put(elementoFinal[1], estado); // Agregar elementoFinal[1] y estado al diccionario
+            terminalesList.add("Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estado);
+        }
+    }
+}
+
 
             String[] terminales = terminalesList.toArray(new String[0]);
 
@@ -381,8 +395,28 @@ public class Nodo {
             ESTADOS estadosObj = null;
             estadosObj = new ESTADOS(estados, terminales);
             REDUCCIONES.add(estadosObj);
-            cont_Estado++; // Incrementar el contador de estados
+
         }
+        ArrayList<ESTADOS> reduccionesCopia = new ArrayList<>(REDUCCIONES);
+        for (ESTADOS estado : reduccionesCopia) {
+            String[] estadosL = estado.estado;
+            String[] terminalesL = estado.termminales;
+
+            for (String t : terminalesL) {
+                String[] partes = t.split("=");
+                String es = partes[2];
+                String num = partes[1];
+                String val = estadosL[0];
+
+                String[] estados = {es, num};
+                String[] v = {""};
+                if (!val.equals(es)) {
+                    ESTADOS estadosObj = new ESTADOS(estados, v);
+                    REDUCCIONES.add(estadosObj);
+                }
+            }
+        }
+
         return etiqueta;
     }
 

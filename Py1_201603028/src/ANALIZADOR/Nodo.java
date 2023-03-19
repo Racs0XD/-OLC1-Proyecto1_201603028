@@ -299,11 +299,11 @@ public class Nodo {
             if (valorHijoIzquierdo.endsWith(",")) {
                 valorHijoIzquierdo = valorHijoIzquierdo.substring(0, valorHijoIzquierdo.length() - 1);
             }
-
-            if (cont_Estado == 0) {
-                // Definir Cabeza
-                String[] Cabeza = {"Estado"};
-
+            /*
+            // Definir Cabeza
+            String[] Cabeza = {"Estado"};
+            String[] valoresArray = {"Terminales"};
+            
                 // Definir valores únicos
                 ArrayList<String> valores = new ArrayList<>();
                 for (SIGUIENTES sig : HOJAS) {
@@ -315,19 +315,91 @@ public class Nodo {
 
                     }
                 }
-
                 // Convertir valores en un arreglo de String
                 String[] valoresArray = valores.toArray(new String[valores.size()]);
+            
 
-                // Crear nuevo objeto ESTADOS y agregarlo a la lista REDUCCIONES
-                ESTADOS estadosO = new ESTADOS(Cabeza, valoresArray);
-                REDUCCIONES.add(estadosO);
+            // Crear nuevo objeto ESTADOS y agregarlo a la lista REDUCCIONES
+            ESTADOS estadosO = new ESTADOS(Cabeza, valoresArray);
+            REDUCCIONES.add(estadosO);*/
 
-                //Crea el estado inicial S0
-                String[] estados = {"S" + cont_Estado, valorHijoIzquierdo};
+            //Crea el estado inicial S0
+            String[] estados = {"S" + cont_Estado, valorHijoIzquierdo};
+
+            // Separar por comas los valores del estado S0
+            String[] numeros = valorHijoIzquierdo.split(",");
+            //Crear un ArrayList para almacenar los terminales
+            ArrayList<String> terminalesList = new ArrayList<String>();
+            ArrayList<String[]> temporales = new ArrayList<String[]>();
+            for (int i = 0; i < numeros.length; i++) {
+                for (SIGUIENTES s : HOJAS) {
+                    //Se encontró un SIGUIENTE para el número actual
+                    if (Integer.parseInt(numeros[i]) == s.getId()) {
+                        //Agregar siguientes junto a su Valor para uniones
+                        String[] tempTer = {s.getValor(), s.getSig()};
+                        temporales.add(tempTer);
+                        break;
+                    }
+                }
+            }
+            ArrayList<String[]> terminalesFinal = new ArrayList<String[]>();
+            for (String[] temp : temporales) {
+                String valor = temp[0];
+                String sig = temp[1];
+
+                boolean encontrado = false;
+
+                // Buscar si el elemento ya existe en el ArrayList 
+                for (String[] elementoFinal : terminalesFinal) {
+                    if (elementoFinal[0].equals(valor)) {
+                        // Fusionar los valores del elemento duplicado
+                        // Separar por comas los valores del estado S0
+                        String[] sig_Separados = sig.split(",");
+                        for (int i = 0; i < sig_Separados.length; i++) {
+                            if (!elementoFinal[1].equals(sig_Separados[i])) {
+                                elementoFinal[1] += "," + sig_Separados[i];
+                            }
+                        }
+                        encontrado = true;
+                        break;
+                    }
+                }
+
+                // Agregar el elemento al ArrayList final si no existe
+                if (!encontrado) {
+                    terminalesFinal.add(temp);
+                }
+
+            }
+            for (String[] elementoFinal : terminalesFinal) {
+                terminalesList.add(elementoFinal[0] + "=" + elementoFinal[1]);
+            }
+
+            String[] terminales = terminalesList.toArray(new String[0]);
+
+            // Crear el objeto ESTADOS una sola vez
+            ESTADOS estadosObj = null;
+            estadosObj = new ESTADOS(estados, terminales);
+            REDUCCIONES.add(estadosObj);
+            cont_Estado++; // Incrementar el contador de estados
+        }
+        return etiqueta;
+    }
+
+    public String Reducciones() {
+        String etiqueta = "";
+        //Bucle para obener el estado inicial y proceder a crear los demás estados
+
+        for (ESTADOS estado : REDUCCIONES) {
+            String[] terminalesL = estado.termminales;
+            for (String t : terminalesL) {
+                String[] partes = t.split("="); // dividir la cadena en dos partes: "c" y "Numero"
+                String num = partes[1]; // obtener la segunda parte de la cadena: "Numero"
+                //Crea el nuevo estado  
+                String[] estados = {"S" + cont_Estado, num};
 
                 // Separar por comas los valores del estado S0
-                String[] numeros = valorHijoIzquierdo.split(",");
+                String[] numeros = num.split(",");
                 //Crear un ArrayList para almacenar los terminales
                 ArrayList<String> terminalesList = new ArrayList<String>();
                 ArrayList<String[]> temporales = new ArrayList<String[]>();
@@ -340,110 +412,60 @@ public class Nodo {
                             temporales.add(tempTer);
                             break;
                         }
-
                     }
                 }
-                ArrayList<String[]> terminalesFinal = new ArrayList<String[]>();
-                for (String[] temp : temporales) {
-                    String valor = temp[0];
-                    String sig = temp[1];
 
-                    boolean encontrado = false;
+            }
 
-                    // Buscar si el elemento ya existe en el ArrayList 
-                    for (String[] elementoFinal : terminalesFinal) {
-                        if (elementoFinal[0].equals(valor)) {
-                            // Fusionar los valores del elemento duplicado
-                            // Separar por comas los valores del estado S0
-                            String[] sig_Separados = sig.split(",");
-                            for (int i = 0; i < sig_Separados.length; i++) {
-                                if (!elementoFinal[1].equals(sig_Separados[i])) {
-                                    elementoFinal[1] += "," + sig_Separados[i];
-                                }
-                            }
-                            encontrado = true;
-                            break;
-                        }
-                    }
+            /*               
 
-                    // Agregar el elemento al ArrayList final si no existe
-                    if (!encontrado) {
-                        terminalesFinal.add(temp);
-                    }
+            
+            ArrayList<String[]> terminalesFinal = new ArrayList<String[]>();
+            for (String[] temp : temporales) {
+                String valor = temp[0];
+                String sig = temp[1];
 
-                }
+                boolean encontrado = false;
+
+                // Buscar si el elemento ya existe en el ArrayList 
                 for (String[] elementoFinal : terminalesFinal) {
-                    terminalesList.add(elementoFinal[0] + "=" + elementoFinal[1]);
-                }
-
-                String[] terminales = terminalesList.toArray(new String[0]);
-
-                // Crear el objeto ESTADOS una sola vez
-                ESTADOS estadosObj = null;
-                estadosObj = new ESTADOS(estados, terminales);
-                REDUCCIONES.add(estadosObj);
-                cont_Estado++; // Incrementar el contador de estados
-
-            }
-        }
-        return etiqueta;
-    }
-
-    public String Reducciones() {
-
-        String etiqueta = "";
-        Nodo hijoIzquierdo = hizquierdo;
-        String valorHijoIzquierdo = hijoIzquierdo.primero;
-        //Elimina las , al final del String
-        if (valorHijoIzquierdo.endsWith(",")) {
-            valorHijoIzquierdo = valorHijoIzquierdo.substring(0, valorHijoIzquierdo.length() - 1);
-        }
-        String[] numeros = valorHijoIzquierdo.split(",");
-        //Bucle para obener el estado inicial y proceder a crear los demás estados
-        for (ESTADOS estado : REDUCCIONES) {
-
-            //Crear un ArrayList para almacenar los terminales
-            ArrayList<String> terminalesList = new ArrayList<String>();
-            for (int i = 0; i < numeros.length; i++) {
-                for (SIGUIENTES s : HOJAS) {
-                    //Se encontró un SIGUIENTE para el número actual
-                    if (Integer.parseInt(numeros[i]) == s.getId()) {
-                        //Agregar el SIGUIENTE a la lista de terminales  
-                        terminalesList.add(s.getSig());
+                    if (elementoFinal[0].equals(valor)) {
+                        // Fusionar los valores del elemento duplicado
+                        // Separar por comas los valores del estado S0
+                        String[] sig_Separados = sig.split(",");
+                        for (int i = 0; i < sig_Separados.length; i++) {
+                            if (!elementoFinal[1].equals(sig_Separados[i])) {
+                                elementoFinal[1] += "," + sig_Separados[i];
+                            }
+                        }
+                        encontrado = true;
+                        break;
                     }
                 }
-                terminalesList.add("--");
-            }
-            // Convertir la lista de terminales en un array de Strings
-            String[] terminales = terminalesList.toArray(String[]::new);
 
-            // Crear un StringBuilder para concatenar los elementos del array de terminales y separarlos por una coma
-            StringBuilder sb = new StringBuilder();
-            for (String es : terminales) {
-                sb.append(es);
-                sb.append(",");
+                // Agregar el elemento al ArrayList final si no existe
+                if (!encontrado) {
+                    terminalesFinal.add(temp);
+                }
+
+            }
+            for (String[] elementoFinal : terminalesFinal) {
+                terminalesList.add(elementoFinal[0] + "=" + elementoFinal[1]);
             }
 
-            // Convertir el contenido del StringBuilder en un String
-            String estadosCombinados = sb.toString();
+            String[] terminales = terminalesList.toArray(new String[0]);
 
-            // Verificar si el String estadosCombinados termina con una coma y eliminarla si es así
-            if (estadosCombinados.endsWith(",")) {
-                estadosCombinados = estadosCombinados.substring(0, estadosCombinados.length() - 1);
-            }
-            //Crea el nuevo estado S
-            String[] estados = {"S" + cont_Estado, estadosCombinados};
             // Crear el objeto ESTADOS una sola vez
             ESTADOS estadosObj = null;
-
             estadosObj = new ESTADOS(estados, terminales);
-            //System.out.println(estadosObj);
-
             REDUCCIONES.add(estadosObj);
+            cont_Estado++; // Incrementar el contador de estados
 
         }
-
+             */
+        }
         return etiqueta;
+
     }
 
     public ArrayList<ESTADOS> getR() {

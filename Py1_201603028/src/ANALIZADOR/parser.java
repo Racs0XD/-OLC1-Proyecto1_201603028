@@ -159,7 +159,7 @@ public static int contID=1;
 public static int IDS=1;
 public static Nodo Raiz;
 public static ArrayList<ArrayList<Object>> Tabla_Sig = new ArrayList<>();
-
+public static ArrayList<ArrayList<Object>> Tabla_Transi = new ArrayList<>();
 public static void graficarArbol(Nodo act, String nombre){
         FileWriter fichero = null;
         PrintWriter pw = null;
@@ -173,7 +173,7 @@ public static void graficarArbol(Nodo act, String nombre){
             pw.println(act.getCodigoInterno());            
             pw.println("}");
             act.getCodigo();   
-
+            
             String nombreLista = nombre;
             ArrayList<SIGUIENTES> nuevaLista = new ArrayList<>();
             for (SIGUIENTES hoja : act.getL()) {
@@ -182,6 +182,15 @@ public static void graficarArbol(Nodo act, String nombre){
             ArrayList<Object> listaConNombre = new ArrayList<>();
             listaConNombre.add(nombreLista);
             listaConNombre.add(nuevaLista);
+
+
+            ArrayList<ESTADOS> nuevaListaR = new ArrayList<>();
+            for (ESTADOS sig : act.getR()) {
+                nuevaListaR.add(sig);
+            }
+            ArrayList<Object> listaConNombreR = new ArrayList<>();
+            listaConNombreR.add(nombreLista);
+            listaConNombreR.add(nuevaListaR);
 
             boolean listaExiste = false;
             for (ArrayList<Object> lista : Tabla_Sig) {
@@ -194,7 +203,10 @@ public static void graficarArbol(Nodo act, String nombre){
 
             if (!listaExiste) {
                 Tabla_Sig.add(listaConNombre); // Agregar una nueva lista con nombre
+                Tabla_Transi.add(listaConNombreR);
             }
+            
+            
             act.clearL();
 
         } catch (Exception e) {
@@ -253,7 +265,7 @@ public static ArrayList<String> crearListaConNombre(String nombreLista) {
 
 public static void Siguientes(){
 Reportes rep = new Reportes();
-rep.Graficar_Tabla_Sig(Tabla_Sig);
+rep.Graficar_Tabla_Sig(Tabla_Sig,Tabla_Transi);
 }
 
 

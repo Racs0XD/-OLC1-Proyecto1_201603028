@@ -255,12 +255,6 @@ public class Nodo {
 
     public ArrayList<SIGUIENTES> getL() {
         getSO();
-        // Reducciones();
-        System.out.println("###############################################################");
-        for (ESTADOS estado : REDUCCIONES) {
-            System.out.println(estado.toString());
-        }
-        System.out.println("###############################################################");
         return HOJAS;
     }
 

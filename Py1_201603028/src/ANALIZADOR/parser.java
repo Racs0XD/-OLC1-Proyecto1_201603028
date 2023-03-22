@@ -205,7 +205,11 @@ public static void graficarArbol(Nodo act, String nombre){
                 Tabla_Sig.add(listaConNombre); // Agregar una nueva lista con nombre
                 Tabla_Transi.add(listaConNombreR);
             }
-            
+            act.getSO();
+            Reportes rep = new Reportes();
+            rep.Graficar_Tabla_Sig(Tabla_Sig);
+            rep.Tabla_Transiciones(Tabla_Transi);
+            rep.Aceptacion(act.getL(), act.getR(),nombre);
             
             act.clearL();
 
@@ -263,10 +267,7 @@ public static ArrayList<String> crearListaConNombre(String nombreLista) {
     return nuevaLista;
 }
 
-public static void Siguientes(){
-Reportes rep = new Reportes();
-rep.Graficar_Tabla_Sig(Tabla_Sig,Tabla_Transi);
-}
+
 
 
 

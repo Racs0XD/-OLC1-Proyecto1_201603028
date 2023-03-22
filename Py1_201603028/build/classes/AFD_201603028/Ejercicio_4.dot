@@ -34,6 +34,6 @@ nodoS4[label="S4"];
 
 nodoS3->nodoS4[label="b"];
 
-nodoS4[label="S4"];
+nodoS4[label="S4"][shape=doublecircle];
 
 }

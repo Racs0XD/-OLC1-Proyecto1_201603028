@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  */
 public class Reportes {
 
-    public void Graficar_Tabla_Sig(ArrayList<ArrayList<Object>> Tabla_Sig, ArrayList<ArrayList<Object>> Tabla_Tran) {
+    public void Graficar_Tabla_Sig(ArrayList<ArrayList<Object>> Tabla_Sig) {
         String nombre = "";
         String nombreLista = "";
         String numAceptación = "";
@@ -63,8 +63,7 @@ public class Reportes {
                 pw.println("</table>\n" + ">];\n");
                 pw.println("}");
                 if (aceptado) {
-                    Tabla_Transiciones(Tabla_Tran);
-                    Aceptacion(Tabla_Sig, Tabla_Tran);
+
                 }
             } catch (Exception e) {
                 System.out.println("error, no se realizo el archivo" + e);
@@ -195,7 +194,7 @@ public class Reportes {
         }
     }
 
-    public void Aceptacion(ArrayList<ArrayList<Object>> Tabla_Sig, ArrayList<ArrayList<Object>> Tabla_Tran) {
+    public void AceptacionPB(ArrayList<ArrayList<Object>> Tabla_Sig, ArrayList<ArrayList<Object>> Tabla_Tran) {
 
         String nombre = "";
         String nombreLista = "";
@@ -221,20 +220,20 @@ public class Reportes {
                         String sig = ((SIGUIENTES) listaInterna.get(j)).sig;
                         if (val.equals("#")) {
                             retorno = true;
-                            AFD(Tabla_Tran, Integer.toString(id));
                             break;
                         }
                     }
-                    if (retorno) {
-                        break;
-                    }
+
+                }
+                if (retorno) {
+                    break;
                 }
 
             }
         }
     }
 
-    public void AFD(ArrayList<ArrayList<Object>> Tabla_Tran, String aceptado) {
+    public void AFDPB(ArrayList<ArrayList<Object>> Tabla_Tran, String aceptado) {
         String nombre = "";
         String nombreLista = "";
         for (ArrayList<Object> lista : Tabla_Tran) {
@@ -268,7 +267,7 @@ public class Reportes {
                                 // se realiza la operación deseada con el valor actual
                                 if (aceptado.equals(valorE)) {
                                     acept = true;
-                                    
+                                    break;
                                 }
                             }
                             if (acept) {
@@ -335,6 +334,102 @@ public class Reportes {
             } finally {
             }
         }
+    }
+
+    public void Aceptacion(ArrayList<SIGUIENTES> Tabla_Sig, ArrayList<ESTADOS> Tabla_Tran, String Nombre) {
+
+        for (SIGUIENTES listaS : Tabla_Sig) {
+            String id = Integer.toString(listaS.id);
+            String val = listaS.valor;
+            if (val.equals("#")) {
+                FileWriter fichero = null;
+                PrintWriter pw = null;
+                try {
+                    fichero = new FileWriter("src/AFD_201603028/" + Nombre + ".dot");
+                    pw = new PrintWriter(fichero);
+                    pw.println("digraph G{");
+                    pw.println("rankdir=LR");
+                    pw.println("node[shape=circle]");
+                    pw.println("concentrate=true");
+                    for (ESTADOS listaE : Tabla_Tran) {
+                        //System.out.println(listaE);
+                        String estadoS = listaE.estado[0];
+                        String estadoS1 = listaE.estado[1];
+                        String[] term = listaE.termminales;
+                        String[] aceptacion = estadoS1.split(",");
+                        boolean acept = false;
+                        for (int z = 0; z < aceptacion.length; z++) { // se itera sobre los elementos del arreglo
+                            String valorE = aceptacion[z]; // se obtiene el valor actual del arreglo
+                            // se realiza la operación deseada con el valor actual
+                            if (id.equals(valorE)) {
+                                acept = true;
+                            }
+                        }
+                        if (acept) {
+                            pw.println("nodo" + estadoS + "[label=\"" + estadoS + "\"][shape=doublecircle];\n");
+                        } else {
+                            pw.println("nodo" + estadoS + "[label=\"" + estadoS + "\"];\n");
+                        }
+
+                        for (String nTer : term) {
+                            String[] Nt_Sep = nTer.split("=");
+                            String conj = Nt_Sep[1];
+                            String S = Nt_Sep[2];
+                            pw.println("nodo" + S + "[label=\"" + S + "\"];\n");
+                            String value = Nt_Sep[0];
+                            Pattern pattern = Pattern.compile("\\((.*?)\\)"); // Expresión regular para buscar el contenido entre paréntesis
+                            Matcher matcher = pattern.matcher(value);
+                            if (matcher.find()) {
+                                String contenido = matcher.group(1);
+                                pw.println("nodo" + estadoS + "->nodo" + S + "[label=\"" + contenido + "\"];\n");
+                            }
+
+                        }
+                    }
+                    pw.println("}");
+                } catch (Exception e) {
+                    System.out.println("error, no se realizo el archivo" + e);
+                } finally {
+                    try {
+                        if (null != fichero) {
+                            fichero.close();
+                        }
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
+                    }
+                }
+
+                //para compilar el archivo dot y obtener la imagen
+                try {
+                    //dirección doonde se ecnuentra el compilador de graphviz
+                    String dotPath = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
+                    //dirección del archivo dot
+                    String fileInputPath = "src/AFD_201603028/" + Nombre + ".dot";
+                    //dirección donde se creara la magen
+                    String fileOutputPath = "src/AFD_201603028/" + Nombre + ".jpg";
+                    //tipo de conversón
+                    String tParam = "-Tjpg";
+                    String tOParam = "-o";
+
+                    String[] cmd = new String[5];
+                    cmd[0] = dotPath;
+                    cmd[1] = tParam;
+                    cmd[2] = fileInputPath;
+                    cmd[3] = tOParam;
+                    cmd[4] = fileOutputPath;
+
+                    Runtime rt = Runtime.getRuntime();
+
+                    rt.exec(cmd);
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                } finally {
+                }
+                break;
+            }
+        }
+
     }
 
 }

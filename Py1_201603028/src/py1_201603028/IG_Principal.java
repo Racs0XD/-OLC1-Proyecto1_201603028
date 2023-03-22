@@ -130,7 +130,6 @@ public class IG_Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btn_Analizar = new javax.swing.JButton();
-        btn_GenerarAutomata = new javax.swing.JButton();
         combo_Archivo = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         panel_TArbol = new javax.swing.JPanel();
@@ -176,14 +175,6 @@ public class IG_Principal extends javax.swing.JFrame {
         btn_Analizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_AnalizarActionPerformed(evt);
-            }
-        });
-
-        btn_GenerarAutomata.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btn_GenerarAutomata.setText("Generar Autómata");
-        btn_GenerarAutomata.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_GenerarAutomataActionPerformed(evt);
             }
         });
 
@@ -316,17 +307,14 @@ public class IG_Principal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1289, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(combo_Archivo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel2)
                                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(btn_GenerarAutomata)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btn_Analizar))
+                                    .addComponent(btn_Analizar, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(statusLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -348,9 +336,7 @@ public class IG_Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(statusLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_Analizar)
-                            .addComponent(btn_GenerarAutomata))
+                        .addComponent(btn_Analizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -412,10 +398,6 @@ public class IG_Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txt_entradasKeyReleased
 
-    private void btn_GenerarAutomataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GenerarAutomataActionPerformed
-        ANALIZADOR.parser.Siguientes();
-    }//GEN-LAST:event_btn_GenerarAutomataActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -454,7 +436,6 @@ public class IG_Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Analizar;
-    private javax.swing.JButton btn_GenerarAutomata;
     private javax.swing.JComboBox<String> combo_Archivo;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;

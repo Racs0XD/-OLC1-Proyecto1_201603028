@@ -253,8 +253,7 @@ public class Nodo {
         return null;
     }
 
-    public ArrayList<SIGUIENTES> getL() {
-        getSO();
+    public ArrayList<SIGUIENTES> getL() {        
         return HOJAS;
     }
 
@@ -423,6 +422,9 @@ public class Nodo {
                             } else {
                                 if(!nuevoV){
                                     String[] nS = S.split("S");
+                                    // ===================================================================================================================
+                                    //ANALIZAR POSIBLE SUMA EXTRA INECESARIA
+                                    // ===================================================================================================================
                                     nN = Integer.parseInt(nS[1]) + 1;
                                     nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
                                     boolean exciste = false;

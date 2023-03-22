@@ -208,7 +208,7 @@ public static void graficarArbol(Nodo act, String nombre){
             act.getSO();
             Reportes rep = new Reportes();
             rep.Graficar_Tabla_Sig(Tabla_Sig);
-            rep.Tabla_Transiciones(Tabla_Transi);
+            rep.Tabla_Transiciones(act.getR(),nombre);
             rep.Aceptacion(act.getL(), act.getR(),nombre);
             
             act.clearL();

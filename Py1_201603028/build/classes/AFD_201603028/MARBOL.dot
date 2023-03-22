@@ -1,0 +1,27 @@
+digraph G{
+rankdir=LR
+node[shape=circle]
+concentrate=true
+nodoS0[label="S0"];
+
+nodoS1[label="S1"];
+
+nodoS0->nodoS1[label=""+""];
+
+nodoS1[label="S1"];
+
+nodoS0->nodoS1[label=""-""];
+
+nodoS1[label="S1"];
+
+nodoS3[label="S3"];
+
+nodoS1->nodoS3[label="D"];
+
+nodoS3[label="S3"][shape=doublecircle];
+
+nodoS3[label="S3"];
+
+nodoS3->nodoS3[label="D"];
+
+}

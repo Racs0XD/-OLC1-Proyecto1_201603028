@@ -2,76 +2,76 @@ digraph G{
 rankdir=UD
 node[shape=box]
 concentrate=true
-nodo18 [ label =< 
+nodo53 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>4</td><td>.</td><td>4</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo16 [ label =< 
+nodo51 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,</td><td>.</td><td>3,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo11 [ label =< 
+nodo46 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,</td><td>+</td><td>1,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo10 [ label =< 
+nodo45 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,</td><td>digito</td><td>1,</td></tr>
 <tr><td colspan="3">1</td></tr>
 </table>
 >];
-nodo11->nodo10
-nodo16->nodo11
-nodo15 [ label =< 
+nodo46->nodo45
+nodo51->nodo46
+nodo50 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>2,</td><td>.</td><td>3,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo12 [ label =< 
+nodo47 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>2,</td><td>"."</td><td>2,</td></tr>
 <tr><td colspan="3">2</td></tr>
 </table>
 >];
-nodo15->nodo12
-nodo14 [ label =< 
+nodo50->nodo47
+nodo49 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,</td><td>+</td><td>3,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo13 [ label =< 
+nodo48 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,</td><td>digito</td><td>3,</td></tr>
 <tr><td colspan="3">3</td></tr>
 </table>
 >];
-nodo14->nodo13
-nodo15->nodo14
-nodo16->nodo15
-nodo18->nodo16
-nodo17 [ label =< 
+nodo49->nodo48
+nodo50->nodo49
+nodo51->nodo50
+nodo53->nodo51
+nodo52 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>4</td><td>#</td><td>4</td></tr>
 <tr><td colspan="3">4</td></tr>
 </table>
 >];
-nodo18->nodo17
+nodo53->nodo52
 
 }

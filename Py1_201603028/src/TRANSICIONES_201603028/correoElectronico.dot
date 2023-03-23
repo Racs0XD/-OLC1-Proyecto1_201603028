@@ -13,11 +13,9 @@ nodo0 [ label =<<table border='0' cellborder='1' color='blue' cellspacing='0'>
 
 <tr><td>S2 {3,4,5,6,7}</td><td>Sig(simbolos)={3,4,5,6,7}=S3, Sig(minuscula)={3,4,5,6,7}=S3, Sig(mayuscula)={3,4,5,6,7}=S3, Sig(numero)={3,4,5,6,7}=S3, Sig("@")={8,9}=S7, </td></tr>
 
-<tr><td>S7 {8,9}</td><td>Sig(minuscula)={8,9,10}=S8, Sig(mayuscula)={8,9,10}=S4, </td></tr>
+<tr><td>S7 {8,9}</td><td>Sig(minuscula)={8,9,10}=S8, Sig(mayuscula)={8,9,10}=S8, </td></tr>
 
 <tr><td>S8 {8,9,10}</td><td>Sig(minuscula)={8,9,10}=S8, Sig(mayuscula)={8,9,10}=S8, Sig(".")={11}=S10, </td></tr>
-
-<tr><td>S4 {8,9,10}</td><td>Sig(minuscula)={8,9,10}=S8, Sig(mayuscula)={8,9,10}=S8, Sig(".")={11}=S10, </td></tr>
 
 <tr><td>S10 {11}</td><td>Sig("c")={12}=S11, </td></tr>
 

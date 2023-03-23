@@ -14,4 +14,20 @@ nodoS1[label="S1"];
 
 nodoS1->nodoS1[label="digito"];
 
+nodoS2[label="S2"];
+
+nodoS1->nodoS2[label="."];
+
+nodoS2[label="S2"];
+
+nodoS3[label="S3"];
+
+nodoS2->nodoS3[label="digito"];
+
+nodoS3[label="S3"][shape=doublecircle];
+
+nodoS3[label="S3"];
+
+nodoS3->nodoS3[label="digito"];
+
 }

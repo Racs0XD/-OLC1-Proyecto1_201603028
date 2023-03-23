@@ -1,0 +1,173 @@
+digraph G{
+rankdir=UD
+node[shape=box]
+concentrate=true
+nodo111 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>10</td><td>.</td><td>10</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo109 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>1,</td><td>.</td><td>6,7,8,9,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo91 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>1,</td><td>"C"</td><td>1,</td></tr>
+<tr><td colspan="3">1</td></tr>
+</table>
+>];
+nodo109->nodo91
+nodo108 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>2,</td><td>.</td><td>6,7,8,9,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo92 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>2,</td><td>"O"</td><td>2,</td></tr>
+<tr><td colspan="3">2</td></tr>
+</table>
+>];
+nodo108->nodo92
+nodo107 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>3,</td><td>.</td><td>6,7,8,9,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo93 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>3,</td><td>"M"</td><td>3,</td></tr>
+<tr><td colspan="3">3</td></tr>
+</table>
+>];
+nodo107->nodo93
+nodo106 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>4,</td><td>.</td><td>6,7,8,9,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo94 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>4,</td><td>"P"</td><td>4,</td></tr>
+<tr><td colspan="3">4</td></tr>
+</table>
+>];
+nodo106->nodo94
+nodo105 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>5,</td><td>.</td><td>6,7,8,9,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo95 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>5,</td><td>"I"</td><td>5,</td></tr>
+<tr><td colspan="3">5</td></tr>
+</table>
+>];
+nodo105->nodo95
+nodo104 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>6,</td><td>.</td><td>6,7,8,9,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo96 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>6,</td><td>"1"</td><td>6,</td></tr>
+<tr><td colspan="3">6</td></tr>
+</table>
+>];
+nodo104->nodo96
+nodo103 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">A</td></tr>
+<tr><td>7,8,9,</td><td>?</td><td>7,8,9,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo102 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>7,8,9,</td><td>+</td><td>7,8,9,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo101 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>7,8,9,</td><td>|</td><td>7,8,9,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo99 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>7,8,</td><td>|</td><td>7,8,</td></tr>
+<tr><td colspan="3">0</td></tr>
+</table>
+>];
+nodo97 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>7,</td><td>letra</td><td>7,</td></tr>
+<tr><td colspan="3">7</td></tr>
+</table>
+>];
+nodo99->nodo97
+nodo98 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>8,</td><td>digito</td><td>8,</td></tr>
+<tr><td colspan="3">8</td></tr>
+</table>
+>];
+nodo99->nodo98
+nodo101->nodo99
+nodo100 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>9,</td><td>" "</td><td>9,</td></tr>
+<tr><td colspan="3">9</td></tr>
+</table>
+>];
+nodo101->nodo100
+nodo102->nodo101
+nodo103->nodo102
+nodo104->nodo103
+nodo105->nodo104
+nodo106->nodo105
+nodo107->nodo106
+nodo108->nodo107
+nodo109->nodo108
+nodo111->nodo109
+nodo110 [ label =< 
+<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td colspan="3">N</td></tr>
+<tr><td>10</td><td>#</td><td>10</td></tr>
+<tr><td colspan="3">10</td></tr>
+</table>
+>];
+nodo111->nodo110
+
+}

@@ -2,236 +2,236 @@ digraph G{
 rankdir=UD
 node[shape=box]
 concentrate=true
-nodo74 [ label =< 
+nodo81 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>14</td><td>.</td><td>14</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo72 [ label =< 
+nodo79 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,2,</td><td>.</td><td>13,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo48 [ label =< 
+nodo55 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,2,</td><td>|</td><td>1,2,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo46 [ label =< 
+nodo53 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,</td><td>minuscula</td><td>1,</td></tr>
 <tr><td colspan="3">1</td></tr>
 </table>
 >];
-nodo48->nodo46
-nodo47 [ label =< 
+nodo55->nodo53
+nodo54 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>2,</td><td>mayuscula</td><td>2,</td></tr>
 <tr><td colspan="3">2</td></tr>
 </table>
 >];
-nodo48->nodo47
-nodo72->nodo48
-nodo71 [ label =< 
+nodo55->nodo54
+nodo79->nodo55
+nodo78 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,4,5,6,</td><td>.</td><td>13,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo56 [ label =< 
+nodo63 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,4,5,6,</td><td>+</td><td>3,4,5,6,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo55 [ label =< 
+nodo62 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,4,5,6,</td><td>|</td><td>3,4,5,6,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo53 [ label =< 
+nodo60 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,4,5,</td><td>|</td><td>3,4,5,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo51 [ label =< 
+nodo58 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,4,</td><td>|</td><td>3,4,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo49 [ label =< 
+nodo56 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,</td><td>simbolos</td><td>3,</td></tr>
 <tr><td colspan="3">3</td></tr>
 </table>
 >];
-nodo51->nodo49
-nodo50 [ label =< 
+nodo58->nodo56
+nodo57 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>4,</td><td>minuscula</td><td>4,</td></tr>
 <tr><td colspan="3">4</td></tr>
 </table>
 >];
-nodo51->nodo50
-nodo53->nodo51
-nodo52 [ label =< 
+nodo58->nodo57
+nodo60->nodo58
+nodo59 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>5,</td><td>mayuscula</td><td>5,</td></tr>
 <tr><td colspan="3">5</td></tr>
 </table>
 >];
-nodo53->nodo52
-nodo55->nodo53
-nodo54 [ label =< 
+nodo60->nodo59
+nodo62->nodo60
+nodo61 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>6,</td><td>numero</td><td>6,</td></tr>
 <tr><td colspan="3">6</td></tr>
 </table>
 >];
-nodo55->nodo54
-nodo56->nodo55
-nodo71->nodo56
-nodo70 [ label =< 
+nodo62->nodo61
+nodo63->nodo62
+nodo78->nodo63
+nodo77 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>7,</td><td>.</td><td>13,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo57 [ label =< 
+nodo64 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>7,</td><td>"@"</td><td>7,</td></tr>
 <tr><td colspan="3">7</td></tr>
 </table>
 >];
-nodo70->nodo57
-nodo69 [ label =< 
+nodo77->nodo64
+nodo76 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>8,9,</td><td>.</td><td>13,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo61 [ label =< 
+nodo68 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>8,9,</td><td>+</td><td>8,9,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo60 [ label =< 
+nodo67 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>8,9,</td><td>|</td><td>8,9,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo58 [ label =< 
+nodo65 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>8,</td><td>minuscula</td><td>8,</td></tr>
 <tr><td colspan="3">8</td></tr>
 </table>
 >];
-nodo60->nodo58
-nodo59 [ label =< 
+nodo67->nodo65
+nodo66 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>9,</td><td>mayuscula</td><td>9,</td></tr>
 <tr><td colspan="3">9</td></tr>
 </table>
 >];
-nodo60->nodo59
-nodo61->nodo60
-nodo69->nodo61
-nodo68 [ label =< 
+nodo67->nodo66
+nodo68->nodo67
+nodo76->nodo68
+nodo75 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>10,</td><td>.</td><td>13,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo62 [ label =< 
+nodo69 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>10,</td><td>"."</td><td>10,</td></tr>
 <tr><td colspan="3">10</td></tr>
 </table>
 >];
-nodo68->nodo62
-nodo67 [ label =< 
+nodo75->nodo69
+nodo74 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>11,</td><td>.</td><td>13,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo63 [ label =< 
+nodo70 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>11,</td><td>"c"</td><td>11,</td></tr>
 <tr><td colspan="3">11</td></tr>
 </table>
 >];
-nodo67->nodo63
-nodo66 [ label =< 
+nodo74->nodo70
+nodo73 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>12,</td><td>.</td><td>13,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo64 [ label =< 
+nodo71 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>12,</td><td>"o"</td><td>12,</td></tr>
 <tr><td colspan="3">12</td></tr>
 </table>
 >];
-nodo66->nodo64
-nodo65 [ label =< 
+nodo73->nodo71
+nodo72 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>13,</td><td>"m"</td><td>13,</td></tr>
 <tr><td colspan="3">13</td></tr>
 </table>
 >];
-nodo66->nodo65
-nodo67->nodo66
-nodo68->nodo67
-nodo69->nodo68
-nodo70->nodo69
-nodo71->nodo70
-nodo72->nodo71
-nodo74->nodo72
-nodo73 [ label =< 
+nodo73->nodo72
+nodo74->nodo73
+nodo75->nodo74
+nodo76->nodo75
+nodo77->nodo76
+nodo78->nodo77
+nodo79->nodo78
+nodo81->nodo79
+nodo80 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>14</td><td>#</td><td>14</td></tr>
 <tr><td colspan="3">14</td></tr>
 </table>
 >];
-nodo74->nodo73
+nodo81->nodo80
 
 }

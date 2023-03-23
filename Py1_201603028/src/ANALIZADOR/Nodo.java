@@ -347,7 +347,6 @@ public class Nodo {
             REDUCCIONES.add(estadosObj);
         }
         ArrayList<ESTADOS> reduccionesCopia = new ArrayList<>(REDUCCIONES);
-        ArrayList<ESTADOS> nuevosEstados = new ArrayList<ESTADOS>();
         for (ESTADOS estado : reduccionesCopia) {
             String[] estadosL = estado.estado;
             String[] terminalesL = estado.termminales;
@@ -427,7 +426,7 @@ public class Nodo {
                                 if (conj.equals(elementoFinal[1])) {
                                     nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
                                     break;
-                                } else if (!conj.equals(elementoFinal[1])) {
+                                } else {
                                     if (!nuevoV) {
                                         String[] nS = S.split("S");
                                         nN = Integer.parseInt(nS[1]) + 1;
@@ -438,7 +437,7 @@ public class Nodo {
                                         nV = nN + 1;
                                     } else {
                                         nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nV, elementoFinal[1]}, new String[]{""});
                                         estadosDicc.put(nuevoS, estadoNuevo);
                                         nV += 1;
                                     }
@@ -532,6 +531,10 @@ public class Nodo {
                             }
 
                         }
+                        // -----------------------------------------------------------------------------------------------------
+                        // -----------------------------------------------------------------------------------------------------
+                        // -----------------------------------------------------------------------------------------------------
+                        // -----------------------------------------------------------------------------------------------------
                         boolean nuevoV = false;
                         int nN = 0;
                         int nV = 0;
@@ -556,7 +559,7 @@ public class Nodo {
                                         if (conj.equals(elementoFinal[1])) {
                                             nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
                                             break;
-                                        } else if (!conj.equals(elementoFinal[1])) {
+                                        } else {
                                             if (!nuevoV) {
                                                 String[] nS = S.split("S");
                                                 nN = Integer.parseInt(nS[1]) + 1;
@@ -567,7 +570,7 @@ public class Nodo {
                                                 nV = nN + 1;
                                             } else {
                                                 nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                                ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                                ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nV, elementoFinal[1]}, new String[]{""});
                                                 estadosDicc.put(nuevoS, estadoNuevo);
                                                 nV += 1;
                                             }
@@ -577,7 +580,8 @@ public class Nodo {
                                 terminalesLi.add(nuevoS);
                             }
                         }
-
+                        // ------------------------------------------------------------------------------------
+                        // ------------------------------------------------------------------------------------
                         String[] terminales = terminalesLi.toArray(new String[0]);
 
                         String[] est = {es, num};
@@ -613,7 +617,6 @@ public class Nodo {
         boolean repetir = false;
         String etiqueta = "";
         ArrayList<ESTADOS> reduccionesCopia = new ArrayList<>(REDUCCIONES);
-        ArrayList<ESTADOS> nuevosEstados = new ArrayList<ESTADOS>();
         for (ESTADOS estado : reduccionesCopia) {
             String[] estadosL = estado.estado;
             String[] terminalesL = estado.termminales;
@@ -693,7 +696,7 @@ public class Nodo {
                                 if (conj.equals(elementoFinal[1])) {
                                     nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
                                     break;
-                                } else if (!conj.equals(elementoFinal[1])) {
+                                } else {
                                     if (!nuevoV) {
                                         String[] nS = S.split("S");
                                         nN = Integer.parseInt(nS[1]) + 1;
@@ -704,7 +707,7 @@ public class Nodo {
                                         nV = nN + 1;
                                     } else {
                                         nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nV, elementoFinal[1]}, new String[]{""});
                                         estadosDicc.put(nuevoS, estadoNuevo);
                                         nV += 1;
                                     }
@@ -822,7 +825,7 @@ public class Nodo {
                                     if (conj.equals(elementoFinal[1])) {
                                         nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
                                         break;
-                                    } else if (!conj.equals(elementoFinal[1])) {
+                                    } else {
                                         if (!nuevoV) {
                                             String[] nS = S.split("S");
                                             nN = Integer.parseInt(nS[1]) + 1;
@@ -833,7 +836,7 @@ public class Nodo {
                                             nV = nN + 1;
                                         } else {
                                             nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                            ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                            ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nV, elementoFinal[1]}, new String[]{""});
                                             estadosDicc.put(nuevoS, estadoNuevo);
                                             nV += 1;
                                         }
@@ -878,7 +881,6 @@ public class Nodo {
         boolean repetir = false;
         String etiqueta = "";
         ArrayList<ESTADOS> reduccionesCopia = new ArrayList<>(REDUCCIONES);
-        ArrayList<ESTADOS> nuevosEstados = new ArrayList<ESTADOS>();
         for (ESTADOS estado : reduccionesCopia) {
             String[] estadosL = estado.estado;
             String[] terminalesL = estado.termminales;
@@ -958,7 +960,7 @@ public class Nodo {
                                 if (conj.equals(elementoFinal[1])) {
                                     nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
                                     break;
-                                } else if (!conj.equals(elementoFinal[1])) {
+                                } else {
                                     if (!nuevoV) {
                                         String[] nS = S.split("S");
                                         nN = Integer.parseInt(nS[1]) + 1;
@@ -969,7 +971,7 @@ public class Nodo {
                                         nV = nN + 1;
                                     } else {
                                         nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nV, elementoFinal[1]}, new String[]{""});
                                         estadosDicc.put(nuevoS, estadoNuevo);
                                         nV += 1;
                                     }
@@ -1087,7 +1089,7 @@ public class Nodo {
                                     if (conj.equals(elementoFinal[1])) {
                                         nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
                                         break;
-                                    } else if (!conj.equals(elementoFinal[1])) {
+                                    } else {
                                         if (!nuevoV) {
                                             String[] nS = S.split("S");
                                             nN = Integer.parseInt(nS[1]) + 1;
@@ -1098,7 +1100,7 @@ public class Nodo {
                                             nV = nN + 1;
                                         } else {
                                             nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                            ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                            ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nV, elementoFinal[1]}, new String[]{""});
                                             estadosDicc.put(nuevoS, estadoNuevo);
                                             nV += 1;
                                         }

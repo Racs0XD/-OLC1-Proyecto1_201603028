@@ -80,9 +80,9 @@ nodoS8[label="S8"];
 
 nodoS7->nodoS8[label="minuscula"];
 
-nodoS4[label="S4"];
+nodoS8[label="S8"];
 
-nodoS7->nodoS4[label="mayuscula"];
+nodoS7->nodoS8[label="mayuscula"];
 
 nodoS8[label="S8"];
 
@@ -97,20 +97,6 @@ nodoS8->nodoS8[label="mayuscula"];
 nodoS10[label="S10"];
 
 nodoS8->nodoS10[label="."];
-
-nodoS4[label="S4"];
-
-nodoS8[label="S8"];
-
-nodoS4->nodoS8[label="minuscula"];
-
-nodoS8[label="S8"];
-
-nodoS4->nodoS8[label="mayuscula"];
-
-nodoS10[label="S10"];
-
-nodoS4->nodoS10[label="."];
 
 nodoS10[label="S10"];
 

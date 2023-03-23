@@ -22,10 +22,8 @@ public  LinkedList<ERRORES> errores  = new LinkedList<ERRORES>();
 
 espacios=[\s]+
 ascii=[\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\<\=\>\?\@\[\\\]\^\_\`\{\|\}]
-salto="\\""n"
-comilla="\"\\\'\""
-comillaD="\\""\""
-especiales=({salto}|{comilla}|{comillaD})
+
+especiales=("\\""n"|"\\""\'"|"\\""\"")
 
 letras=[a-zA-z]
 minusculas=[a-z]

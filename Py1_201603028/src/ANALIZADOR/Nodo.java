@@ -406,86 +406,68 @@ public class Nodo {
                 boolean nuevoV = false;
                 int nN = 0;
                 int nV = 0;
+                HashMap<String, ESTADOS> estadosDicc = new HashMap<String, ESTADOS>(); // Inicializar diccionario
                 for (String[] elementoFinal : terminalesFin) {
                     if (!elementoFinal[0].equals("#")) {
                         String nuevoS = "";
-
-                        for (String Nt : terminalesL) {
-                            String[] Nt_Sep = Nt.split("=");
-                            String conj = Nt_Sep[1];
-                            String S = Nt_Sep[2];
-
-                            if (conj.equals(elementoFinal[1])) {
-                                nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                        boolean encontrado = false;
+                        for (ESTADOS estadoNew : estadosDicc.values()) {
+                            String[] estadoVal = estadoNew.estado;
+                            if (estadoVal[1].equals(elementoFinal[1])) {
+                                nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estadoVal[0];
+                                encontrado = true;
                                 break;
-                            } else if (!conj.equals(elementoFinal[1])) {
-                                if (!nuevoV) {
-                                    String[] nS = S.split("S");
-                                    nN = Integer.parseInt(nS[1]) + 1;
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
-                                    boolean exciste = false;
-                                    nuevoV = true;
-                                    nV = nN + 1;
-                                    for (ESTADOS Ex : nuevosEstados) {
-                                        String[] nval = Ex.estado;
-                                        if (nval[1].equals(elementoFinal[1])) {
-                                            exciste = true;
-                                        }
-
+                            }
+                        }
+                        if (!encontrado) {
+                            for (String Nt : terminalesL) {
+                                String[] Nt_Sep = Nt.split("=");
+                                String conj = Nt_Sep[1];
+                                String S = Nt_Sep[2];
+                                if (conj.equals(elementoFinal[1])) {
+                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                                    break;
+                                } else if (!conj.equals(elementoFinal[1])) {
+                                    if (!nuevoV) {
+                                        String[] nS = S.split("S");
+                                        nN = Integer.parseInt(nS[1]) + 1;
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
+                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                        estadosDicc.put(nuevoS, estadoNuevo);
+                                        nuevoV = true;
+                                        nV = nN + 1;
+                                    } else {
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
+                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                        estadosDicc.put(nuevoS, estadoNuevo);
+                                        nV += 1;
                                     }
-                                    if (!exciste) {
-                                        String[] nest = {"S" + nN, elementoFinal[1]};
-                                        String[] nterminal = {""};
-                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                        nuevosEstados.add(estadosO);
-                                    }
-                                } else {
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                    boolean exciste = false;
-                                    nV += 1;
-                                    for (ESTADOS Ex : nuevosEstados) {
-                                        String[] nval = Ex.estado;
-                                        if (nval[1].equals(elementoFinal[1])) {
-                                            exciste = true;
-                                        }
-
-                                    }
-                                    if (!exciste) {
-                                        String[] nest = {"S" + nN, elementoFinal[1]};
-                                        String[] nterminal = {""};
-                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                        nuevosEstados.add(estadosO);
-                                    }
-
                                 }
-
                             }
                         }
-
                         terminalesLi.add(nuevoS);
+                    }
+                }
 
+                String[] terminales = terminalesLi.toArray(new String[0]);
+
+                String[] est = {es, num};
+                if (!val.equals(es)) {
+                    boolean repetido = false;
+                    for (ESTADOS estadoRepetido : REDUCCIONES) {
+                        String[] estadosR = estadoRepetido.estado;
+
+                        if (estadosR[0].equals(est[0])) {
+                            repetido = true;
                         }
                     }
-
-                    String[] terminales = terminalesLi.toArray(new String[0]);
-
-                    String[] est = {es, num};
-                    if (!val.equals(es)) {
-                        boolean repetido = false;
-                        for (ESTADOS estadoRepetido : REDUCCIONES) {
-                            String[] estadosR = estadoRepetido.estado;
-
-                            if (estadosR[0].equals(est[0])) {
-                                repetido = true;
-                            }
-                        }
-                        if (!repetido) {
-                            ESTADOS estadosObj = new ESTADOS(est, terminales);
-                            REDUCCIONES.add(estadosObj);
-                        }
-
+                    if (!repetido) {
+                        ESTADOS estadosObj = new ESTADOS(est, terminales);
+                        REDUCCIONES.add(estadosObj);
                     }
-                
+
+                }
+
             }
             ArrayList<ESTADOS> reduccionesCopia2 = new ArrayList<>(REDUCCIONES);
             for (ESTADOS estadosExiste : reduccionesCopia2) {
@@ -553,129 +535,48 @@ public class Nodo {
                         boolean nuevoV = false;
                         int nN = 0;
                         int nV = 0;
+                        HashMap<String, ESTADOS> estadosDicc = new HashMap<String, ESTADOS>(); // Inicializar diccionario
                         for (String[] elementoFinal : terminalesFin) {
                             if (!elementoFinal[0].equals("#")) {
                                 String nuevoS = "";
-                                for (String Nt : terminalE) {
-                                    String[] Nt_Sep = Nt.split("=");
-                                    String conj = Nt_Sep[1];
-                                    String S = Nt_Sep[2];
-                                    if (conj.equals(elementoFinal[1])) {
-                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                                boolean encontrado = false;
+                                for (ESTADOS estadoNew : estadosDicc.values()) {
+                                    String[] estadoVal = estadoNew.estado;
+                                    if (estadoVal[1].equals(elementoFinal[1])) {
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estadoVal[0];
+                                        encontrado = true;
                                         break;
-                                    } else if (!conj.equals(elementoFinal[1])) {
-                                        if (!nuevoV) {
-                                            String[] nS = S.split("S");
-                                            nN = Integer.parseInt(nS[1]) + 1;
-                                            nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
-                                            boolean exciste = false;
-                                            nuevoV = true;
-                                            nV = nN + 1;
-                                            for (ESTADOS Ex : nuevosEstados) {
-                                                String[] nval = Ex.estado;
-                                                if (nval[1].equals(elementoFinal[1])) {
-                                                    exciste = true;
-                                                }
-
-                                            }
-                                            if (!exciste) {
-                                                String[] nest = {"S" + nN, elementoFinal[1]};
-                                                String[] nterminal = {""};
-                                                ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                                nuevosEstados.add(estadosO);
-                                            }
-                                        } else {
-                                            nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                            boolean exciste = false;
-                                            nV += 1;
-                                            for (ESTADOS Ex : nuevosEstados) {
-                                                String[] nval = Ex.estado;
-                                                if (nval[1].equals(elementoFinal[1])) {
-                                                    exciste = true;
-                                                }
-
-                                            }
-                                            if (!exciste) {
-                                                String[] nest = {"S" + nN, elementoFinal[1]};
-                                                String[] nterminal = {""};
-                                                ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                                nuevosEstados.add(estadosO);
-                                            }
-
-                                        }
-
                                     }
                                 }
-
+                                if (!encontrado) {
+                                    for (String Nt : terminalE) {
+                                        String[] Nt_Sep = Nt.split("=");
+                                        String conj = Nt_Sep[1];
+                                        String S = Nt_Sep[2];
+                                        if (conj.equals(elementoFinal[1])) {
+                                            nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                                            break;
+                                        } else if (!conj.equals(elementoFinal[1])) {
+                                            if (!nuevoV) {
+                                                String[] nS = S.split("S");
+                                                nN = Integer.parseInt(nS[1]) + 1;
+                                                nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
+                                                ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                                estadosDicc.put(nuevoS, estadoNuevo);
+                                                nuevoV = true;
+                                                nV = nN + 1;
+                                            } else {
+                                                nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
+                                                ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                                estadosDicc.put(nuevoS, estadoNuevo);
+                                                nV += 1;
+                                            }
+                                        }
+                                    }
+                                }
                                 terminalesLi.add(nuevoS);
-
                             }
                         }
-
-                        /*
-                         HashMap<String, String> estadosDicc = new HashMap<String, String>(); // Inicializar diccionario
-                for (String[] elementoFinal : terminalesFin) {
-                    if (!elementoFinal[0].equals("#")) {
-                        String nuevoS = "";
-
-                        for (String Nt : terminalesL) {
-                            String[] Nt_Sep = Nt.split("=");
-                            String conj = Nt_Sep[1];
-                            String S = Nt_Sep[2];
-
-                            if (!conj.equals(elementoFinal[1])) {
-                                // Incrementar el contador de estados
-                                String[] nS = S.split("S");
-                                nN = Integer.parseInt(nS[1]);
-                                nV = nN + 1;
-                                // Obtener estado asociado al elementoFinal[1]
-                                String estad = estadosDicc.get(elementoFinal[1]);
-                                //actual
-                                if (estad != null) {// Si elementoFinal[1] ya está en el diccionario
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estad;
-                                    boolean exciste = false;
-                                    for (ESTADOS Ex : nuevosEstados) {
-                                        String[] nval = Ex.estado;
-                                        if (nval[1].equals(elementoFinal[1])) {
-                                            exciste = true;
-                                        }
-
-                                    }
-                                    if (!exciste) {
-                                        String[] nest = {"S" + nN, elementoFinal[1]};
-                                        String[] nterminal = {""};
-                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                        nuevosEstados.add(estadosO);
-                                    }
-                                } else { // Si elementoFinal[1] no está en el diccionario
-                                    estad = "S" + nV;
-                                    // Agregar elementoFinal[1] y estado al diccionario
-                                    estadosDicc.put(elementoFinal[1], estad);
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estad;
-                                    boolean exciste = false;
-                                    for (ESTADOS Ex : nuevosEstados) {
-                                        String[] nval = Ex.estado;
-                                        if (nval[1].equals(elementoFinal[1])) {
-                                            exciste = true;
-                                        }
-
-                                    }
-                                    if (!exciste) {
-                                        String[] nest = {"S" + nN, elementoFinal[1]};
-                                        String[] nterminal = {""};
-                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                        nuevosEstados.add(estadosO);
-                                    }
-                                }
-
-                            }
-                        }
-
-                        terminalesLi.add(nuevoS);
-
-                    }
-                }
-                         */
 
                         String[] terminales = terminalesLi.toArray(new String[0]);
 
@@ -771,64 +672,46 @@ public class Nodo {
                 boolean nuevoV = false;
                 int nN = 0;
                 int nV = 0;
+                HashMap<String, ESTADOS> estadosDicc = new HashMap<String, ESTADOS>(); // Inicializar diccionario
                 for (String[] elementoFinal : terminalesFin) {
                     if (!elementoFinal[0].equals("#")) {
                         String nuevoS = "";
-
-                        for (String Nt : terminalesL) {
-                            String[] Nt_Sep = Nt.split("=");
-                            String conj = Nt_Sep[1];
-                            String S = Nt_Sep[2];
-
-                            if (conj.equals(elementoFinal[1])) {
-                                nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                        boolean encontrado = false;
+                        for (ESTADOS estadoNew : estadosDicc.values()) {
+                            String[] estadoVal = estadoNew.estado;
+                            if (estadoVal[1].equals(elementoFinal[1])) {
+                                nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estadoVal[0];
+                                encontrado = true;
                                 break;
-                            } else if (!conj.equals(elementoFinal[1])) {
-                                if (!nuevoV) {
-                                    String[] nS = S.split("S");
-                                    nN = Integer.parseInt(nS[1]) + 1;
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
-                                    boolean exciste = false;
-                                    nuevoV = true;
-                                    nV = nN + 1;
-                                    for (ESTADOS Ex : nuevosEstados) {
-                                        String[] nval = Ex.estado;
-                                        if (nval[1].equals(elementoFinal[1])) {
-                                            exciste = true;
-                                        }
-
-                                    }
-                                    if (!exciste) {
-                                        String[] nest = {"S" + nN, elementoFinal[1]};
-                                        String[] nterminal = {""};
-                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                        nuevosEstados.add(estadosO);
-                                    }
-                                } else {
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                    boolean exciste = false;
-                                    nV += 1;
-                                    for (ESTADOS Ex : nuevosEstados) {
-                                        String[] nval = Ex.estado;
-                                        if (nval[1].equals(elementoFinal[1])) {
-                                            exciste = true;
-                                        }
-
-                                    }
-                                    if (!exciste) {
-                                        String[] nest = {"S" + nN, elementoFinal[1]};
-                                        String[] nterminal = {""};
-                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                        nuevosEstados.add(estadosO);
-                                    }
-
-                                }
-
                             }
                         }
-
+                        if (!encontrado) {
+                            for (String Nt : terminalesL) {
+                                String[] Nt_Sep = Nt.split("=");
+                                String conj = Nt_Sep[1];
+                                String S = Nt_Sep[2];
+                                if (conj.equals(elementoFinal[1])) {
+                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                                    break;
+                                } else if (!conj.equals(elementoFinal[1])) {
+                                    if (!nuevoV) {
+                                        String[] nS = S.split("S");
+                                        nN = Integer.parseInt(nS[1]) + 1;
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
+                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                        estadosDicc.put(nuevoS, estadoNuevo);
+                                        nuevoV = true;
+                                        nV = nN + 1;
+                                    } else {
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
+                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                        estadosDicc.put(nuevoS, estadoNuevo);
+                                        nV += 1;
+                                    }
+                                }
+                            }
+                        }
                         terminalesLi.add(nuevoS);
-
                     }
                 }
 
@@ -918,62 +801,46 @@ public class Nodo {
                     boolean nuevoV = false;
                     int nN = 0;
                     int nV = 0;
+                    HashMap<String, ESTADOS> estadosDicc = new HashMap<String, ESTADOS>(); // Inicializar diccionario
                     for (String[] elementoFinal : terminalesFin) {
                         if (!elementoFinal[0].equals("#")) {
                             String nuevoS = "";
-                            for (String Nt : terminalE) {
-                                String[] Nt_Sep = Nt.split("=");
-                                String conj = Nt_Sep[1];
-                                String S = Nt_Sep[2];
-                                if (conj.equals(elementoFinal[1])) {
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                            boolean encontrado = false;
+                            for (ESTADOS estadoNew : estadosDicc.values()) {
+                                String[] estadoVal = estadoNew.estado;
+                                if (estadoVal[1].equals(elementoFinal[1])) {
+                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estadoVal[0];
+                                    encontrado = true;
                                     break;
-                                } else if (!conj.equals(elementoFinal[1])) {
-                                    if (!nuevoV) {
-                                        String[] nS = S.split("S");
-                                        nN = Integer.parseInt(nS[1]) + 1;
-                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
-                                        boolean exciste = false;
-                                        nuevoV = true;
-                                        nV = nN + 1;
-                                        for (ESTADOS Ex : nuevosEstados) {
-                                            String[] nval = Ex.estado;
-                                            if (nval[1].equals(elementoFinal[1])) {
-                                                exciste = true;
-                                            }
-
-                                        }
-                                        if (!exciste) {
-                                            String[] nest = {"S" + nN, elementoFinal[1]};
-                                            String[] nterminal = {""};
-                                            ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                            nuevosEstados.add(estadosO);
-                                        }
-                                    } else {
-                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                        boolean exciste = false;
-                                        nV += 1;
-                                        for (ESTADOS Ex : nuevosEstados) {
-                                            String[] nval = Ex.estado;
-                                            if (nval[1].equals(elementoFinal[1])) {
-                                                exciste = true;
-                                            }
-
-                                        }
-                                        if (!exciste) {
-                                            String[] nest = {"S" + nN, elementoFinal[1]};
-                                            String[] nterminal = {""};
-                                            ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                            nuevosEstados.add(estadosO);
-                                        }
-
-                                    }
-
                                 }
                             }
-
+                            if (!encontrado) {
+                                for (String Nt : terminalE) {
+                                    String[] Nt_Sep = Nt.split("=");
+                                    String conj = Nt_Sep[1];
+                                    String S = Nt_Sep[2];
+                                    if (conj.equals(elementoFinal[1])) {
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                                        break;
+                                    } else if (!conj.equals(elementoFinal[1])) {
+                                        if (!nuevoV) {
+                                            String[] nS = S.split("S");
+                                            nN = Integer.parseInt(nS[1]) + 1;
+                                            nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
+                                            ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                            estadosDicc.put(nuevoS, estadoNuevo);
+                                            nuevoV = true;
+                                            nV = nN + 1;
+                                        } else {
+                                            nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
+                                            ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                            estadosDicc.put(nuevoS, estadoNuevo);
+                                            nV += 1;
+                                        }
+                                    }
+                                }
+                            }
                             terminalesLi.add(nuevoS);
-
                         }
                     }
 
@@ -1070,64 +937,46 @@ public class Nodo {
                 boolean nuevoV = false;
                 int nN = 0;
                 int nV = 0;
+                HashMap<String, ESTADOS> estadosDicc = new HashMap<String, ESTADOS>(); // Inicializar diccionario
                 for (String[] elementoFinal : terminalesFin) {
                     if (!elementoFinal[0].equals("#")) {
                         String nuevoS = "";
-
-                        for (String Nt : terminalesL) {
-                            String[] Nt_Sep = Nt.split("=");
-                            String conj = Nt_Sep[1];
-                            String S = Nt_Sep[2];
-
-                            if (conj.equals(elementoFinal[1])) {
-                                nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                        boolean encontrado = false;
+                        for (ESTADOS estadoNew : estadosDicc.values()) {
+                            String[] estadoVal = estadoNew.estado;
+                            if (estadoVal[1].equals(elementoFinal[1])) {
+                                nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estadoVal[0];
+                                encontrado = true;
                                 break;
-                            } else if (!conj.equals(elementoFinal[1])) {
-                                if (!nuevoV) {
-                                    String[] nS = S.split("S");
-                                    nN = Integer.parseInt(nS[1]) + 1;
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
-                                    boolean exciste = false;
-                                    nuevoV = true;
-                                    nV = nN + 1;
-                                    for (ESTADOS Ex : nuevosEstados) {
-                                        String[] nval = Ex.estado;
-                                        if (nval[1].equals(elementoFinal[1])) {
-                                            exciste = true;
-                                        }
-
-                                    }
-                                    if (!exciste) {
-                                        String[] nest = {"S" + nN, elementoFinal[1]};
-                                        String[] nterminal = {""};
-                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                        nuevosEstados.add(estadosO);
-                                    }
-                                } else {
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                    boolean exciste = false;
-                                    nV += 1;
-                                    for (ESTADOS Ex : nuevosEstados) {
-                                        String[] nval = Ex.estado;
-                                        if (nval[1].equals(elementoFinal[1])) {
-                                            exciste = true;
-                                        }
-
-                                    }
-                                    if (!exciste) {
-                                        String[] nest = {"S" + nN, elementoFinal[1]};
-                                        String[] nterminal = {""};
-                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                        nuevosEstados.add(estadosO);
-                                    }
-
-                                }
-
                             }
                         }
-
+                        if (!encontrado) {
+                            for (String Nt : terminalesL) {
+                                String[] Nt_Sep = Nt.split("=");
+                                String conj = Nt_Sep[1];
+                                String S = Nt_Sep[2];
+                                if (conj.equals(elementoFinal[1])) {
+                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                                    break;
+                                } else if (!conj.equals(elementoFinal[1])) {
+                                    if (!nuevoV) {
+                                        String[] nS = S.split("S");
+                                        nN = Integer.parseInt(nS[1]) + 1;
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
+                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                        estadosDicc.put(nuevoS, estadoNuevo);
+                                        nuevoV = true;
+                                        nV = nN + 1;
+                                    } else {
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
+                                        ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                        estadosDicc.put(nuevoS, estadoNuevo);
+                                        nV += 1;
+                                    }
+                                }
+                            }
+                        }
                         terminalesLi.add(nuevoS);
-
                     }
                 }
 
@@ -1217,62 +1066,46 @@ public class Nodo {
                     boolean nuevoV = false;
                     int nN = 0;
                     int nV = 0;
+                    HashMap<String, ESTADOS> estadosDicc = new HashMap<String, ESTADOS>(); // Inicializar diccionario
                     for (String[] elementoFinal : terminalesFin) {
                         if (!elementoFinal[0].equals("#")) {
                             String nuevoS = "";
-                            for (String Nt : terminalE) {
-                                String[] Nt_Sep = Nt.split("=");
-                                String conj = Nt_Sep[1];
-                                String S = Nt_Sep[2];
-                                if (conj.equals(elementoFinal[1])) {
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                            boolean encontrado = false;
+                            for (ESTADOS estadoNew : estadosDicc.values()) {
+                                String[] estadoVal = estadoNew.estado;
+                                if (estadoVal[1].equals(elementoFinal[1])) {
+                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estadoVal[0];
+                                    encontrado = true;
                                     break;
-                                } else if (!conj.equals(elementoFinal[1])) {
-                                    if (!nuevoV) {
-                                        String[] nS = S.split("S");
-                                        nN = Integer.parseInt(nS[1]) + 1;
-                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
-                                        boolean exciste = false;
-                                        nuevoV = true;
-                                        nV = nN + 1;
-                                        for (ESTADOS Ex : nuevosEstados) {
-                                            String[] nval = Ex.estado;
-                                            if (nval[1].equals(elementoFinal[1])) {
-                                                exciste = true;
-                                            }
-
-                                        }
-                                        if (!exciste) {
-                                            String[] nest = {"S" + nN, elementoFinal[1]};
-                                            String[] nterminal = {""};
-                                            ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                            nuevosEstados.add(estadosO);
-                                        }
-                                    } else {
-                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                        boolean exciste = false;
-                                        nV += 1;
-                                        for (ESTADOS Ex : nuevosEstados) {
-                                            String[] nval = Ex.estado;
-                                            if (nval[1].equals(elementoFinal[1])) {
-                                                exciste = true;
-                                            }
-
-                                        }
-                                        if (!exciste) {
-                                            String[] nest = {"S" + nN, elementoFinal[1]};
-                                            String[] nterminal = {""};
-                                            ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                            nuevosEstados.add(estadosO);
-                                        }
-
-                                    }
-
                                 }
                             }
-
+                            if (!encontrado) {
+                                for (String Nt : terminalE) {
+                                    String[] Nt_Sep = Nt.split("=");
+                                    String conj = Nt_Sep[1];
+                                    String S = Nt_Sep[2];
+                                    if (conj.equals(elementoFinal[1])) {
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                                        break;
+                                    } else if (!conj.equals(elementoFinal[1])) {
+                                        if (!nuevoV) {
+                                            String[] nS = S.split("S");
+                                            nN = Integer.parseInt(nS[1]) + 1;
+                                            nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
+                                            ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                            estadosDicc.put(nuevoS, estadoNuevo);
+                                            nuevoV = true;
+                                            nV = nN + 1;
+                                        } else {
+                                            nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
+                                            ESTADOS estadoNuevo = new ESTADOS(new String[]{"S" + nN, elementoFinal[1]}, new String[]{""});
+                                            estadosDicc.put(nuevoS, estadoNuevo);
+                                            nV += 1;
+                                        }
+                                    }
+                                }
+                            }
                             terminalesLi.add(nuevoS);
-
                         }
                     }
 

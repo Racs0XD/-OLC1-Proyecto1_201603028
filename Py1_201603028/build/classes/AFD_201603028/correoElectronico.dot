@@ -18,17 +18,17 @@ nodoS3[label="S3"];
 
 nodoS1->nodoS3[label="simbolos"];
 
-nodoS5[label="S5"];
+nodoS2[label="S2"];
 
-nodoS1->nodoS5[label="minuscula"];
+nodoS1->nodoS2[label="minuscula"];
 
-nodoS7[label="S7"];
+nodoS2[label="S2"];
 
-nodoS1->nodoS7[label="mayuscula"];
+nodoS1->nodoS2[label="mayuscula"];
 
-nodoS9[label="S9"];
+nodoS2[label="S2"];
 
-nodoS1->nodoS9[label="numero"];
+nodoS1->nodoS2[label="numero"];
 
 nodoS3[label="S3"];
 
@@ -52,70 +52,84 @@ nodoS7[label="S7"];
 
 nodoS3->nodoS7[label="@"];
 
-nodoS5[label="S5"];
+nodoS2[label="S2"];
 
 nodoS3[label="S3"];
 
-nodoS5->nodoS3[label="simbolos"];
+nodoS2->nodoS3[label="simbolos"];
 
 nodoS3[label="S3"];
 
-nodoS5->nodoS3[label="minuscula"];
+nodoS2->nodoS3[label="minuscula"];
 
 nodoS3[label="S3"];
 
-nodoS5->nodoS3[label="mayuscula"];
+nodoS2->nodoS3[label="mayuscula"];
 
 nodoS3[label="S3"];
 
-nodoS5->nodoS3[label="numero"];
+nodoS2->nodoS3[label="numero"];
 
 nodoS7[label="S7"];
 
-nodoS5->nodoS7[label="@"];
+nodoS2->nodoS7[label="@"];
 
 nodoS7[label="S7"];
 
-nodoS3[label="S3"];
+nodoS8[label="S8"];
 
-nodoS7->nodoS3[label="simbolos"];
+nodoS7->nodoS8[label="minuscula"];
 
-nodoS3[label="S3"];
+nodoS4[label="S4"];
 
-nodoS7->nodoS3[label="minuscula"];
+nodoS7->nodoS4[label="mayuscula"];
 
-nodoS3[label="S3"];
+nodoS8[label="S8"];
 
-nodoS7->nodoS3[label="mayuscula"];
+nodoS8[label="S8"];
 
-nodoS3[label="S3"];
+nodoS8->nodoS8[label="minuscula"];
 
-nodoS7->nodoS3[label="numero"];
+nodoS8[label="S8"];
 
-nodoS7[label="S7"];
+nodoS8->nodoS8[label="mayuscula"];
 
-nodoS7->nodoS7[label="@"];
+nodoS10[label="S10"];
 
-nodoS9[label="S9"];
+nodoS8->nodoS10[label="."];
 
-nodoS3[label="S3"];
+nodoS4[label="S4"];
 
-nodoS9->nodoS3[label="simbolos"];
+nodoS8[label="S8"];
 
-nodoS3[label="S3"];
+nodoS4->nodoS8[label="minuscula"];
 
-nodoS9->nodoS3[label="minuscula"];
+nodoS8[label="S8"];
 
-nodoS3[label="S3"];
+nodoS4->nodoS8[label="mayuscula"];
 
-nodoS9->nodoS3[label="mayuscula"];
+nodoS10[label="S10"];
 
-nodoS3[label="S3"];
+nodoS4->nodoS10[label="."];
 
-nodoS9->nodoS3[label="numero"];
+nodoS10[label="S10"];
 
-nodoS7[label="S7"];
+nodoS11[label="S11"];
 
-nodoS9->nodoS7[label="@"];
+nodoS10->nodoS11[label="c"];
+
+nodoS11[label="S11"];
+
+nodoS12[label="S12"];
+
+nodoS11->nodoS12[label="o"];
+
+nodoS12[label="S12"];
+
+nodoS13[label="S13"];
+
+nodoS12->nodoS13[label="m"];
+
+nodoS13[label="S13"][shape=doublecircle];
 
 }

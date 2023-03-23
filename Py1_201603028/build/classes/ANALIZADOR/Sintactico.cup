@@ -63,6 +63,7 @@ public static void graficarArbol(Nodo act, String nombre){
             rep.Tabla_Transiciones(act.getR(),nombre);
             rep.Aceptacion(act.getL(), act.getR(),nombre);
             
+            
             act.clearL();
 
         } catch (Exception e) {

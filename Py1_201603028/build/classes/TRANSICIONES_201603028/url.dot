@@ -1,0 +1,35 @@
+digraph G{
+rankdir=UD
+node[shape=box]
+concentrate=true
+nodo0 [ label =<<table border='0' cellborder='1' color='blue' cellspacing='0'>
+<tr><td>Estado</td><td>Terminales</td></tr>
+
+<tr><td>S0 {1}</td><td>Sig("h")={2}=S1, </td></tr>
+
+<tr><td>S1 {2}</td><td>Sig("t")={3}=S2, </td></tr>
+
+<tr><td>S2 {3}</td><td>Sig("t")={4}=S3, </td></tr>
+
+<tr><td>S3 {4}</td><td>Sig("p")={5,6}=S4, </td></tr>
+
+<tr><td>S4 {5,6}</td><td>Sig("s")={6}=S5, Sig(":")={7}=S6, </td></tr>
+
+<tr><td>S5 {6}</td><td>Sig(":")={7}=S6, </td></tr>
+
+<tr><td>S6 {7}</td><td>Sig("/")={8}=S7, </td></tr>
+
+<tr><td>S7 {8}</td><td>Sig("/")={9}=S8, </td></tr>
+
+<tr><td>S8 {9}</td><td>Sig(minuscula)={9,10}=S9, </td></tr>
+
+<tr><td>S9 {9,10}</td><td>Sig(minuscula)={9,10}=S9, Sig(".")={11}=S10, </td></tr>
+
+<tr><td>S10 {11}</td><td>Sig(minuscula)={11,12}=S11, </td></tr>
+
+<tr><td>S11 {11,12}</td><td>Sig(minuscula)={11,12}=S11, </td></tr>
+
+</table>
+>];
+
+}

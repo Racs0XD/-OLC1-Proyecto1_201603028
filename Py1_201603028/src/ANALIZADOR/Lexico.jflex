@@ -1,7 +1,11 @@
 package ANALIZADOR;
 import java_cup.runtime.*;
-
+import java.util.LinkedList;
 %%
+
+%{
+public  LinkedList<ERRORES> errores  = new LinkedList<ERRORES>();
+%}
 
 %class Lexico
 %cupsym sym
@@ -17,13 +21,17 @@ import java_cup.runtime.*;
 %init}
 
 espacios=[\s]+
-ascii=[\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}]
-especiales=("\\""n"|"\\""\'"|"\\""\"")
+ascii=[\!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\<\=\>\?\@\[\\\]\^\_\`\{\|\}]
+salto="\\""n"
+comilla="\"\\\'\""
+comillaD="\\""\""
+especiales=({salto}|{comilla}|{comillaD})
+
 letras=[a-zA-z]
 minusculas=[a-z]
 mayusculas=[A-Z]
 enteros=[0-9]
-reservada="CONJ"
+reservada=["c"|"C"]["o"|"O"]["n"|"N"]["j"|"J"]
 
 llave_a="{"
 llave_c="}"
@@ -43,7 +51,7 @@ comentarioL=\/\/[^\r\n]*
 comentarioML=("<""!"[^\!]*"!"">")
 
 
-c_ERegular=([\"]{ascii}[\"]|[\"]{letras}[\"]|[\"]{enteros}[\"]|[\"][\"])
+c_ERegular = ([\"][\s]*{ascii}[\"]|[\"][\s]*{letras}[\"]|[\"][\s]*{enteros}[\"]|[\"][\s]*[\"]|{especiales}) 
 c_Especial={especiales}
 
 Conj_Rango=({minusculas}(\s)*"~"(\s)*{minusculas}|{mayusculas}(\s)*"~"(\s)*{mayusculas}|{enteros}(\s)*"~"(\s)*{enteros}|{ascii}(\s)*"~"(\s)*{ascii})
@@ -65,7 +73,8 @@ id_ERegular="{"[a-zA-z0-9_]+"}"
 {comentarioL} {}
 {comentarioML} {}
 {FinB} {}
-
+{c_Especial} {return new Symbol(sym.c_Especial,yycolumn,yyline,yytext());}
+{c_ERegular} {return new Symbol(sym.c_ERegular,yycolumn,yyline,yytext());}
 {reservada} {return new Symbol(sym.reservada,yycolumn,yyline,yytext());}
 {dos_puntos} {return new Symbol(sym.dos_puntos,yycolumn,yyline,yytext());}
 {punto} {return new Symbol(sym.punto,yycolumn,yyline,yytext());}
@@ -76,12 +85,14 @@ id_ERegular="{"[a-zA-z0-9_]+"}"
 {llave_a} {return new Symbol(sym.llave_a,yycolumn,yyline,yytext());}
 {id_ERegular} {return new Symbol(sym.id_ERegular,yycolumn,yyline,yytext());}
 {id} {return new Symbol(sym.id,yycolumn,yyline,yytext());}
-{c_ERegular} {return new Symbol(sym.c_ERegular,yycolumn,yyline,yytext());}
-{c_Especial} {return new Symbol(sym.c_Especial,yycolumn,yyline,yytext());}
 {punto_coma} {return new Symbol(sym.punto_coma,yycolumn,yyline,yytext());}
 {menos} {return new Symbol(sym.menos,yycolumn,yyline,yytext());}
 {mayorq} {return new Symbol(sym.mayorq,yycolumn,yyline,yytext());}
 {llave_c} {return new Symbol(sym.llave_c,yycolumn,yyline,yytext());}
 {conj} {return new Symbol(sym.conj,yycolumn,yyline,yytext());}
 {E_Prueba} {return new Symbol(sym.E_Prueba,yycolumn,yyline,yytext());}
-. {System.err.println("Error lexico: "+yytext()+" Linea: "+(yyline)+" columna: "+(yycolumn));}
+.   {
+    ERRORES  erro = new ERRORES("Lexico", yytext(),"Caracter no encontrado", yyline, yycolumn);
+    System.out.println("Error Lexico : "+yytext()+"Linea"+yyline+" Columna "+yycolumn);
+    errores.add(erro);
+    }

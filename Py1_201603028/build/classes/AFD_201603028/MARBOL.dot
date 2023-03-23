@@ -6,11 +6,11 @@ nodoS0[label="S0"];
 
 nodoS1[label="S1"];
 
-nodoS0->nodoS1[label=""+""];
+nodoS0->nodoS1[label="+"];
 
 nodoS1[label="S1"];
 
-nodoS0->nodoS1[label=""-""];
+nodoS0->nodoS1[label="-"];
 
 nodoS1[label="S1"];
 

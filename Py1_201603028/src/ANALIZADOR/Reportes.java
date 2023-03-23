@@ -133,7 +133,12 @@ public class Reportes {
                     String S = Nt_Sep[2];
                     Nterminal += Nt_Sep[0] + "={" + Nt_Sep[1] + "}=" + Nt_Sep[2] + ", ";
                 }
-                pw.println("<tr><td>" + val + "</td><td>" + Nterminal + "</td></tr>\n");
+                
+                if(Nterminal.equals("")){
+                    pw.println("<tr><td>" + val + "</td><td>" + "--" + "</td></tr>\n");
+                }else{
+                    pw.println("<tr><td>" + val + "</td><td>" + Nterminal + "</td></tr>\n");
+                }
             }
             pw.println("</table>\n" + ">];\n");
             pw.println("}");
@@ -222,7 +227,7 @@ public class Reportes {
                             Pattern pattern = Pattern.compile("\\((.*?)\\)"); // Expresión regular para buscar el contenido entre paréntesis
                             Matcher matcher = pattern.matcher(value);
                             if (matcher.find()) {
-                                String contenido = matcher.group(1);
+                                String contenido = matcher.group(1).replace("\"", "");
                                 pw.println("nodo" + estadoS + "->nodo" + S + "[label=\"" + contenido + "\"];\n");
                             }
 

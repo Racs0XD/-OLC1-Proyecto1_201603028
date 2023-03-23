@@ -34,14 +34,14 @@ nodoS3[label="S3"];
 
 nodoS3->nodoS3[label="b"];
 
-nodoS4[label="S4"];
+nodoS5[label="S5"];
 
-nodoS3->nodoS4[label="c"];
+nodoS3->nodoS5[label="c"];
 
-nodoS4[label="S4"][shape=doublecircle];
+nodoS5[label="S5"][shape=doublecircle];
 
-nodoS4[label="S4"];
+nodoS5[label="S5"];
 
-nodoS4->nodoS4[label="c"];
+nodoS5->nodoS5[label="c"];
 
 }

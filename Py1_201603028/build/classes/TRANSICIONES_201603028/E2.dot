@@ -11,9 +11,9 @@ nodo0 [ label =<<table border='0' cellborder='1' color='blue' cellspacing='0'>
 
 <tr><td>S2 {1,2}</td><td>Sig(a)={1,2}=S2, Sig(b)={2,3}=S3, </td></tr>
 
-<tr><td>S3 {2,3}</td><td>Sig(b)={2,3}=S3, Sig(c)={3,5}=S4, </td></tr>
+<tr><td>S3 {2,3}</td><td>Sig(b)={2,3}=S3, Sig(c)={3,5}=S5, </td></tr>
 
-<tr><td>S4 {3,5}</td><td>Sig(c)={3,5}=S4, </td></tr>
+<tr><td>S5 {3,5}</td><td>Sig(c)={3,5}=S5, </td></tr>
 
 </table>
 >];

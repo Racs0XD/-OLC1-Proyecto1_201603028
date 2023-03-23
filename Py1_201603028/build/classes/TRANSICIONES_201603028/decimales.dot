@@ -7,11 +7,7 @@ nodo0 [ label =<<table border='0' cellborder='1' color='blue' cellspacing='0'>
 
 <tr><td>S0 {1}</td><td>Sig(digito)={1,2}=S1, </td></tr>
 
-<tr><td>S1 {1,2}</td><td>Sig(digito)={1,2}=S1, Sig(".")={3}=S2, </td></tr>
-
-<tr><td>S2 {3}</td><td>Sig(digito)={3,4}=S3, </td></tr>
-
-<tr><td>S3 {3,4}</td><td>Sig(digito)={3,4}=S3, </td></tr>
+<tr><td>S1 {1,2}</td><td>Sig(digito)={1,2}=S1, </td></tr>
 
 </table>
 >];

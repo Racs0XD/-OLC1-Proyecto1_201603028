@@ -2,100 +2,100 @@ digraph G{
 rankdir=UD
 node[shape=box]
 concentrate=true
-nodo136 [ label =< 
+nodo46 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>5</td><td>.</td><td>5</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo134 [ label =< 
+nodo44 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,4,</td><td>|</td><td>3,4,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo132 [ label =< 
+nodo42 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,</td><td>.</td><td>3,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo129 [ label =< 
+nodo39 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,</td><td>.</td><td>2,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo126 [ label =< 
+nodo36 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,</td><td>+</td><td>1,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo125 [ label =< 
+nodo35 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>1,</td><td>a</td><td>1,</td></tr>
 <tr><td colspan="3">1</td></tr>
 </table>
 >];
-nodo126->nodo125
-nodo129->nodo126
-nodo128 [ label =< 
+nodo36->nodo35
+nodo39->nodo36
+nodo38 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>2,</td><td>+</td><td>2,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo127 [ label =< 
+nodo37 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>2,</td><td>b</td><td>2,</td></tr>
 <tr><td colspan="3">2</td></tr>
 </table>
 >];
-nodo128->nodo127
-nodo129->nodo128
-nodo132->nodo129
-nodo131 [ label =< 
+nodo38->nodo37
+nodo39->nodo38
+nodo42->nodo39
+nodo41 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,</td><td>+</td><td>3,</td></tr>
 <tr><td colspan="3">0</td></tr>
 </table>
 >];
-nodo130 [ label =< 
+nodo40 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>3,</td><td>c</td><td>3,</td></tr>
 <tr><td colspan="3">3</td></tr>
 </table>
 >];
-nodo131->nodo130
-nodo132->nodo131
-nodo134->nodo132
-nodo133 [ label =< 
+nodo41->nodo40
+nodo42->nodo41
+nodo44->nodo42
+nodo43 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>4,</td><td>a</td><td>4,</td></tr>
 <tr><td colspan="3">4</td></tr>
 </table>
 >];
-nodo134->nodo133
-nodo136->nodo134
-nodo135 [ label =< 
+nodo44->nodo43
+nodo46->nodo44
+nodo45 [ label =< 
 <table border='0' cellborder='1' color='blue' cellspacing='0'>
 <tr><td colspan="3">N</td></tr>
 <tr><td>5</td><td>#</td><td>5</td></tr>
 <tr><td colspan="3">5</td></tr>
 </table>
 >];
-nodo136->nodo135
+nodo46->nodo45
 
 }

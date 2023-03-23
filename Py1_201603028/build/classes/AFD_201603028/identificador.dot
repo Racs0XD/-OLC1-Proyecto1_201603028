@@ -14,12 +14,4 @@ nodoS1[label="S1"];
 
 nodoS1->nodoS1[label="_"];
 
-nodoS1[label="S1"];
-
-nodoS1->nodoS1[label="abecedarioMinus"];
-
-nodoS1[label="S1"];
-
-nodoS1->nodoS1[label="digito"];
-
 }

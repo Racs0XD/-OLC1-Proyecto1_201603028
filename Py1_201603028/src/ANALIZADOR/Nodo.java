@@ -414,15 +414,13 @@ public class Nodo {
                             String[] Nt_Sep = Nt.split("=");
                             String conj = Nt_Sep[1];
                             String S = Nt_Sep[2];
+
                             if (conj.equals(elementoFinal[1])) {
                                 nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
                                 break;
-                            } else if (!conj.equals(elementoFinal[1])){
+                            } else if (!conj.equals(elementoFinal[1])) {
                                 if (!nuevoV) {
                                     String[] nS = S.split("S");
-                                    // ===================================================================================================================
-                                    //ANALIZAR POSIBLE SUMA EXTRA INECESARIA
-                                    // ===================================================================================================================
                                     nN = Integer.parseInt(nS[1]) + 1;
                                     nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
                                     boolean exciste = false;
@@ -466,151 +464,6 @@ public class Nodo {
 
                         terminalesLi.add(nuevoS);
 
-                    }
-                }
-
-                String[] terminales = terminalesLi.toArray(new String[0]);
-
-                String[] est = {es, num};
-                if (!val.equals(es)) {
-                    boolean repetido = false;
-                    for (ESTADOS estadoRepetido : REDUCCIONES) {
-                        String[] estadosR = estadoRepetido.estado;
-
-                        if (estadosR[0].equals(est[0])) {
-                            repetido = true;
-                        }
-                    }
-                    if (!repetido) {
-                        ESTADOS estadosObj = new ESTADOS(est, terminales);
-                        REDUCCIONES.add(estadosObj);
-                    }
-
-                }
-            }
-        }
-        ArrayList<ESTADOS> reduccionesCopia2 = new ArrayList<>(REDUCCIONES);
-        for (ESTADOS estadosExiste : reduccionesCopia2) {
-            String[] terminalE = estadosExiste.termminales;
-            for (String nuevoEstado : terminalE) {
-                String[] partes = nuevoEstado.split("=");
-                String es = partes[2];
-                String num = partes[1];
-                String val = partes[0];
-                boolean existe = false;
-
-                for (ESTADOS e : reduccionesCopia2) {
-                    if (e.estado[1].equals(num)) {
-                        existe = true;
-                        break;
-                    }
-                }
-
-                if (!existe) {
-                    // Separar por comas los valores del estado S0
-                    String[] numer = num.split(",");
-                    // Crear un ArrayList para almacenar los terminales
-                    ArrayList<String> terminalesLi = new ArrayList<String>();
-                    ArrayList<String[]> tempora = new ArrayList<String[]>();
-                    for (int i = 0; i < numer.length; i++) {
-                        for (SIGUIENTES s : HOJAS) {
-                            // Se encontró un SIGUIENTE para el número actual
-                            if (Integer.parseInt(numer[i]) == s.getId()) {
-                                // Agregar siguientes junto a su Valor para uniones
-                                String[] tempTer = {s.getValor(), s.getSig()};
-                                tempora.add(tempTer);
-                                break;
-                            }
-                        }
-                    }
-                    ArrayList<String[]> terminalesFin = new ArrayList<String[]>();
-
-                    for (String[] temp : tempora) {
-                        String valor = temp[0];
-                        String sig = temp[1];
-                        boolean enc = false;
-
-                        // Buscar si el elemento ya existe en el ArrayList
-                        for (String[] elementoFinal : terminalesFin) {
-                            if (elementoFinal[0].equals(valor)) {
-                                // Fusionar los valores del elemento duplicado
-                                // Separar por comas los valores del estado S0
-                                String[] sig_Separado = sig.split(",");
-                                for (int i = 0; i < sig_Separado.length; i++) {
-                                    if (!elementoFinal[1].equals(sig_Separado[i])) {
-                                        elementoFinal[1] += "," + sig_Separado[i];
-                                    }
-                                }
-                                enc = true;
-                                break;
-                            }
-                        }
-
-                        // Agregar el elemento al ArrayList final si no existe
-                        if (!enc) {
-                            terminalesFin.add(temp);
-                        }
-
-                    }
-                    boolean nuevoV = false;
-                    int nN = 0;
-                    int nV = 0;
-                    for (String[] elementoFinal : terminalesFin) {
-                        if (!elementoFinal[0].equals("#")) {
-                            String nuevoS = "";
-                            for (String Nt : terminalE) {
-                                String[] Nt_Sep = Nt.split("=");
-                                String conj = Nt_Sep[1];
-                                String S = Nt_Sep[2];
-                                if (conj.equals(elementoFinal[1])) {
-                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
-                                    break;
-                                } else if (!conj.equals(elementoFinal[1])) {
-                                    if (!nuevoV) {
-                                        String[] nS = S.split("S");
-                                        nN = Integer.parseInt(nS[1]) + 1;
-                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
-                                        boolean exciste = false;
-                                        nuevoV = true;
-                                        nV = nN + 1;
-                                        for (ESTADOS Ex : nuevosEstados) {
-                                            String[] nval = Ex.estado;
-                                            if (nval[1].equals(elementoFinal[1])) {
-                                                exciste = true;
-                                            }
-
-                                        }
-                                        if (!exciste) {
-                                            String[] nest = {"S" + nN, elementoFinal[1]};
-                                            String[] nterminal = {""};
-                                            ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                            nuevosEstados.add(estadosO);
-                                        }
-                                    } else {
-                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
-                                        boolean exciste = false;
-                                        nV += 1;
-                                        for (ESTADOS Ex : nuevosEstados) {
-                                            String[] nval = Ex.estado;
-                                            if (nval[1].equals(elementoFinal[1])) {
-                                                exciste = true;
-                                            }
-
-                                        }
-                                        if (!exciste) {
-                                            String[] nest = {"S" + nN, elementoFinal[1]};
-                                            String[] nterminal = {""};
-                                            ESTADOS estadosO = new ESTADOS(nest, nterminal);
-                                            nuevosEstados.add(estadosO);
-                                        }
-
-                                    }
-
-                                }
-                            }
-
-                            terminalesLi.add(nuevoS);
-
                         }
                     }
 
@@ -627,12 +480,223 @@ public class Nodo {
                             }
                         }
                         if (!repetido) {
-                            String[] nest = {es, num};
-                            ESTADOS estadosO = new ESTADOS(nest, terminales);
-                            REDUCCIONES.add(estadosO);
-                            repetir = true;
+                            ESTADOS estadosObj = new ESTADOS(est, terminales);
+                            REDUCCIONES.add(estadosObj);
                         }
 
+                    }
+                
+            }
+            ArrayList<ESTADOS> reduccionesCopia2 = new ArrayList<>(REDUCCIONES);
+            for (ESTADOS estadosExiste : reduccionesCopia2) {
+                String[] terminalE = estadosExiste.termminales;
+                for (String nuevoEstado : terminalE) {
+                    String[] partes = nuevoEstado.split("=");
+                    String es = partes[2];
+                    String num = partes[1];
+                    String val = partes[0];
+                    boolean existe = false;
+
+                    for (ESTADOS e : reduccionesCopia2) {
+                        if (e.estado[1].equals(num)) {
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (!existe) {
+                        // Separar por comas los valores del estado S0
+                        String[] numer = num.split(",");
+                        // Crear un ArrayList para almacenar los terminales
+                        ArrayList<String> terminalesLi = new ArrayList<String>();
+                        ArrayList<String[]> tempora = new ArrayList<String[]>();
+                        for (int i = 0; i < numer.length; i++) {
+                            for (SIGUIENTES s : HOJAS) {
+                                // Se encontró un SIGUIENTE para el número actual
+                                if (Integer.parseInt(numer[i]) == s.getId()) {
+                                    // Agregar siguientes junto a su Valor para uniones
+                                    String[] tempTer = {s.getValor(), s.getSig()};
+                                    tempora.add(tempTer);
+                                    break;
+                                }
+                            }
+                        }
+                        ArrayList<String[]> terminalesFin = new ArrayList<String[]>();
+
+                        for (String[] temp : tempora) {
+                            String valor = temp[0];
+                            String sig = temp[1];
+                            boolean enc = false;
+
+                            // Buscar si el elemento ya existe en el ArrayList
+                            for (String[] elementoFinal : terminalesFin) {
+                                if (elementoFinal[0].equals(valor)) {
+                                    // Fusionar los valores del elemento duplicado
+                                    // Separar por comas los valores del estado S0
+                                    String[] sig_Separado = sig.split(",");
+                                    for (int i = 0; i < sig_Separado.length; i++) {
+                                        if (!elementoFinal[1].equals(sig_Separado[i])) {
+                                            elementoFinal[1] += "," + sig_Separado[i];
+                                        }
+                                    }
+                                    enc = true;
+                                    break;
+                                }
+                            }
+
+                            // Agregar el elemento al ArrayList final si no existe
+                            if (!enc) {
+                                terminalesFin.add(temp);
+                            }
+
+                        }
+                        boolean nuevoV = false;
+                        int nN = 0;
+                        int nV = 0;
+                        for (String[] elementoFinal : terminalesFin) {
+                            if (!elementoFinal[0].equals("#")) {
+                                String nuevoS = "";
+                                for (String Nt : terminalE) {
+                                    String[] Nt_Sep = Nt.split("=");
+                                    String conj = Nt_Sep[1];
+                                    String S = Nt_Sep[2];
+                                    if (conj.equals(elementoFinal[1])) {
+                                        nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + S;
+                                        break;
+                                    } else if (!conj.equals(elementoFinal[1])) {
+                                        if (!nuevoV) {
+                                            String[] nS = S.split("S");
+                                            nN = Integer.parseInt(nS[1]) + 1;
+                                            nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nN;
+                                            boolean exciste = false;
+                                            nuevoV = true;
+                                            nV = nN + 1;
+                                            for (ESTADOS Ex : nuevosEstados) {
+                                                String[] nval = Ex.estado;
+                                                if (nval[1].equals(elementoFinal[1])) {
+                                                    exciste = true;
+                                                }
+
+                                            }
+                                            if (!exciste) {
+                                                String[] nest = {"S" + nN, elementoFinal[1]};
+                                                String[] nterminal = {""};
+                                                ESTADOS estadosO = new ESTADOS(nest, nterminal);
+                                                nuevosEstados.add(estadosO);
+                                            }
+                                        } else {
+                                            nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=S" + nV;
+                                            boolean exciste = false;
+                                            nV += 1;
+                                            for (ESTADOS Ex : nuevosEstados) {
+                                                String[] nval = Ex.estado;
+                                                if (nval[1].equals(elementoFinal[1])) {
+                                                    exciste = true;
+                                                }
+
+                                            }
+                                            if (!exciste) {
+                                                String[] nest = {"S" + nN, elementoFinal[1]};
+                                                String[] nterminal = {""};
+                                                ESTADOS estadosO = new ESTADOS(nest, nterminal);
+                                                nuevosEstados.add(estadosO);
+                                            }
+
+                                        }
+
+                                    }
+                                }
+
+                                terminalesLi.add(nuevoS);
+
+                            }
+                        }
+
+                        /*
+                         HashMap<String, String> estadosDicc = new HashMap<String, String>(); // Inicializar diccionario
+                for (String[] elementoFinal : terminalesFin) {
+                    if (!elementoFinal[0].equals("#")) {
+                        String nuevoS = "";
+
+                        for (String Nt : terminalesL) {
+                            String[] Nt_Sep = Nt.split("=");
+                            String conj = Nt_Sep[1];
+                            String S = Nt_Sep[2];
+
+                            if (!conj.equals(elementoFinal[1])) {
+                                // Incrementar el contador de estados
+                                String[] nS = S.split("S");
+                                nN = Integer.parseInt(nS[1]);
+                                nV = nN + 1;
+                                // Obtener estado asociado al elementoFinal[1]
+                                String estad = estadosDicc.get(elementoFinal[1]);
+                                //actual
+                                if (estad != null) {// Si elementoFinal[1] ya está en el diccionario
+                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estad;
+                                    boolean exciste = false;
+                                    for (ESTADOS Ex : nuevosEstados) {
+                                        String[] nval = Ex.estado;
+                                        if (nval[1].equals(elementoFinal[1])) {
+                                            exciste = true;
+                                        }
+
+                                    }
+                                    if (!exciste) {
+                                        String[] nest = {"S" + nN, elementoFinal[1]};
+                                        String[] nterminal = {""};
+                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
+                                        nuevosEstados.add(estadosO);
+                                    }
+                                } else { // Si elementoFinal[1] no está en el diccionario
+                                    estad = "S" + nV;
+                                    // Agregar elementoFinal[1] y estado al diccionario
+                                    estadosDicc.put(elementoFinal[1], estad);
+                                    nuevoS = "Sig(" + elementoFinal[0] + ")" + "=" + elementoFinal[1] + "=" + estad;
+                                    boolean exciste = false;
+                                    for (ESTADOS Ex : nuevosEstados) {
+                                        String[] nval = Ex.estado;
+                                        if (nval[1].equals(elementoFinal[1])) {
+                                            exciste = true;
+                                        }
+
+                                    }
+                                    if (!exciste) {
+                                        String[] nest = {"S" + nN, elementoFinal[1]};
+                                        String[] nterminal = {""};
+                                        ESTADOS estadosO = new ESTADOS(nest, nterminal);
+                                        nuevosEstados.add(estadosO);
+                                    }
+                                }
+
+                            }
+                        }
+
+                        terminalesLi.add(nuevoS);
+
+                    }
+                }
+                         */
+
+                        String[] terminales = terminalesLi.toArray(new String[0]);
+
+                        String[] est = {es, num};
+                        if (!val.equals(es)) {
+                            boolean repetido = false;
+                            for (ESTADOS estadoRepetido : REDUCCIONES) {
+                                String[] estadosR = estadoRepetido.estado;
+
+                                if (estadosR[0].equals(est[0])) {
+                                    repetido = true;
+                                }
+                            }
+                            if (!repetido) {
+                                String[] nest = {es, num};
+                                ESTADOS estadosO = new ESTADOS(nest, terminales);
+                                REDUCCIONES.add(estadosO);
+                                repetir = true;
+                            }
+
+                        }
                     }
                 }
             }

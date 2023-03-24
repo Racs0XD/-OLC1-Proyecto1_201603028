@@ -319,7 +319,7 @@ public class Lexico implements java_cup.runtime.Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-public  LinkedList<ERRORES> errores  = new LinkedList<ERRORES>();
+public LinkedList<ERRORES> errores = new LinkedList<ERRORES>();
 
 
   /**
@@ -707,8 +707,7 @@ public  LinkedList<ERRORES> errores  = new LinkedList<ERRORES>();
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { ERRORES  erro = new ERRORES("Lexico", yytext(),"Caracter no encontrado", yyline, yycolumn);
-    System.out.println("Error Lexico : "+yytext()+"Linea"+yyline+" Columna "+yycolumn);
+            { ERRORES erro = new ERRORES("Lexico", yytext(), yyline, yycolumn);
     errores.add(erro);
             } 
             // fall through

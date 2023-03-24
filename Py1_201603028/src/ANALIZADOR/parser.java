@@ -6,11 +6,11 @@
 package ANALIZADOR;
 
 import java_cup.runtime.*;
-import py1_201603028.*;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Stack;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -256,6 +256,7 @@ public static void graficarArbol(Nodo act, String nombre){
     }
 private Symbol SError;
 
+
 public void syntax_error(Symbol SError){
 this.SError = SError;
 }
@@ -268,7 +269,9 @@ public static ArrayList<String> crearListaConNombre(String nombreLista) {
     return nuevaLista;
 }
 
-
+public Stack<Object> getStack() {
+    return stack;
+}
 
 
 

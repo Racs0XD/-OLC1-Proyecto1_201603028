@@ -4,7 +4,7 @@ import java.util.LinkedList;
 %%
 
 %{
-public  LinkedList<ERRORES> errores  = new LinkedList<ERRORES>();
+public LinkedList<ERRORES> errores = new LinkedList<ERRORES>();
 %}
 
 %class Lexico
@@ -89,8 +89,8 @@ id_ERegular="{"[a-zA-z0-9_]+"}"
 {llave_c} {return new Symbol(sym.llave_c,yycolumn,yyline,yytext());}
 {conj} {return new Symbol(sym.conj,yycolumn,yyline,yytext());}
 {E_Prueba} {return new Symbol(sym.E_Prueba,yycolumn,yyline,yytext());}
-.   {
-    ERRORES  erro = new ERRORES("Lexico", yytext(),"Caracter no encontrado", yyline, yycolumn);
-    System.out.println("Error Lexico : "+yytext()+"Linea"+yyline+" Columna "+yycolumn);
+. {
+    ERRORES erro = new ERRORES("Lexico", yytext(), yyline, yycolumn);
     errores.add(erro);
-    }
+}
+

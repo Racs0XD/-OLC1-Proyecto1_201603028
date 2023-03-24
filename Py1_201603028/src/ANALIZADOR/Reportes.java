@@ -333,4 +333,38 @@ public class Reportes {
         return sb.toString();
     }
 
+    public void GenerarReporte(ArrayList<ERRORES> errores) {
+        StringBuilder htmlBuilder = new StringBuilder();
+        htmlBuilder.append("<html><head><title>Errores</title>");
+        htmlBuilder.append("<style>\n");
+        htmlBuilder.append("body {text-align:center;}\n");
+        htmlBuilder.append("table {border-collapse: collapse; margin: 0 auto;}\n");
+        htmlBuilder.append("th {background-color: #00CCCC; font-weight:bold;}\n");
+        htmlBuilder.append("td, th {padding: 10px; border: 1px solid #00CCCC;}\n");
+        htmlBuilder.append(".nombre {border: 1px solid #00CCCC; padding: 10px; margin-top: 20px;}\n");
+        htmlBuilder.append("</style></head><body>\n");
+        htmlBuilder.append("<h1 style='color: #00CCCC;'>Errores</h1>\n");
+        htmlBuilder.append("<p>Nombre del archivo: errores</p>\n");
+        htmlBuilder.append("<table>\n");
+        htmlBuilder.append("<tr><th>#</th><th>Tipo de Error</th><th>Descripción</th><th>Línea</th><th>Columna</th></tr>\n");
+        for (int i = 0; i < errores.size(); i++) {
+            ERRORES error = errores.get(i);
+            htmlBuilder.append("<tr><td>").append(i + 1).append("</td><td>").append(error.getTipo())
+                    .append("</td><td>").append(error.getValor()).append("</td><td>")
+                    .append(error.getLinea()).append("</td><td>").append(error.getColumna())
+                    .append("</td></tr>\n");
+        }
+        htmlBuilder.append("</table>\n");
+        htmlBuilder.append("<div class='nombre'><h2>Oscar Eduardo Morales Girón - 201603028</h2></div>\n");
+        htmlBuilder.append("</body></html>");
+        String html = htmlBuilder.toString();
+        try {
+            FileWriter fileWriter = new FileWriter("src/ERRORES_201603028/errores.html");
+            fileWriter.write(html);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

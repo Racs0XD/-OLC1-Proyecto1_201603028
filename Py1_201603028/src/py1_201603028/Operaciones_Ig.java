@@ -1,11 +1,5 @@
 package py1_201603028;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 
 public class Operaciones_Ig {
     
@@ -20,10 +14,6 @@ public class Operaciones_Ig {
             java_cup.Main.main(oCUP);
         } catch (Exception e) {
         }
-    }
-    
-    static void AbrirArchivo(){
-        
-    }
+    }     
 
 }

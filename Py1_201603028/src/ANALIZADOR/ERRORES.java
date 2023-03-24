@@ -9,25 +9,32 @@ package ANALIZADOR;
  * @author oscar
  */
 public class ERRORES {
+    private String tipo;
+    private String valor;
+    private int linea;
+    private int columna;
 
-    String tipo, lexema, descripcion;
-    int linea, columna;
-
-    public ERRORES(String tipo, String lexema, String descripcion, int linea, int columna) {
+    public ERRORES(String tipo, String valor, int linea, int columna) {
         this.tipo = tipo;
-        this.lexema = lexema;
-        this.descripcion = descripcion;
-        this.linea = linea + 1;
-        this.columna = columna + 1;
+        this.valor = valor;
+        this.linea = linea;
+        this.columna = columna;
     }
 
-    public String mostar() {
-        String data = "";
-        data += "\ntipo:" + tipo;
-        data += "\nlexema:" + lexema;
-        data += "\ndescripcion:" + descripcion;
-        data += "\nlinea:" + String.valueOf(linea);
-        data += "\ncolumna:" + String.valueOf(columna);
-        return data;
+    public String getTipo() {
+        return tipo;
     }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public int getLinea() {
+        return linea;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+    
 }

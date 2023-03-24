@@ -1,0 +1,55 @@
+Para validar los conjuntos de entrada en un archivo utilizando JFlex y CUP, puedes definir un token CONJ en JFlex y luego utilizarlo en CUP. El token CONJ se puede definir como sigue en JFlex:
+
+makefile
+Copy code
+CONJ = "CONJ:" ;
+IDENTIFIER = [a-zA-Z][a-zA-Z0-9_]* ;
+SET_DEF = "{" [^}]* "}" ;
+SET_RANGE = ([a-zA-Z0-9])"~"([a-zA-Z0-9]) ;
+SET_ENUM = ([a-zA-Z0-9_]+)((","[a-zA-Z0-9_]+)*) ;
+SET_SPECIAL = "!"|"\""|"#"|"\$"|"%|"&"|"'"|"("|")"|"\*"|"\+"|","|"-|"."|"/"|":"|";"|"\<"|"="|"\>"|"?"|"@"|"\["|"\\\"|"\]"|"^"|"_"|"\`"|"{"|"|"|"}"|"~" ;
+SET = SET_RANGE|SET_ENUM|SET_SPECIAL ;
+CONJ_DEF = CONJ IDENTIFIER "->" SET_DEF ;
+Aquí, CONJ_DEF se define como CONJ seguido de un identificador seguido de una flecha (->) y un conjunto definido. Los conjuntos pueden definirse como un rango (SET_RANGE), una enumeración (SET_ENUM) o un conjunto especial (SET_SPECIAL). El conjunto especial incluye todos los caracteres ASCII imprimibles, excepto los números y las letras.
+
+Luego, en CUP, puedes definir una producción para un conjunto que utiliza los tokens definidos en JFlex. Por ejemplo:
+
+javascript
+Copy code
+import java.util.*;
+
+/* Define los símbolos terminales */
+terminal IDENTIFIER, SET_RANGE, SET_ENUM, SET_SPECIAL;
+
+/* Define la producción para un conjunto */
+non terminal Set set;
+
+/* Define la gramática */
+start with ConjDef;
+
+ConjDef ::=
+  CONJ IDENTIFIER "→" SetDef 
+  { System.out.println("Conjunto definido: " + $2); }
+
+SetDef ::=
+  "{" Set "}" 
+  { RESULT = $2; }
+
+Set ::=
+  SetRange
+  | SetEnum
+  | SetSpecial
+  { RESULT = $1; }
+
+SetRange ::=
+  SET_RANGE 
+  { RESULT = new Set(); RESULT.addRange($1.charAt(0), $3.charAt(0)); }
+
+SetEnum ::=
+  SET_ENUM 
+  { RESULT = new Set(); for (String s : $1) RESULT.add(s); }
+
+SetSpecial ::=
+  SET_SPECIAL 
+  { RESULT = new Set(); RESULT.addSpecial($1); }
+Aquí, Set se define como una producción no terminal que puede ser un SetRange, un SetEnum o un SetSpecial. Cada uno de estos se define en una producción separada, y se utilizan las clases Set para representar los conjuntos. La clase Set tiene métodos para agregar rangos, elementos individuales o caracteres especiales al conjunto. La producción SetDef devuelve el conjunto resultante.

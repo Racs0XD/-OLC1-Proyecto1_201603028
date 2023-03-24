@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Nodo {
 
@@ -1150,7 +1151,6 @@ public class Nodo {
         String etiqueta;
         etiqueta = valor + "|" + id_hojas + "|";
         boolean encontrado = false; // variable para indicar si se ha encontrado el ID en la lista
-
         if (valor.equals(".")) {
             Nodo hijoIzquierdo = hizquierdo;
             Nodo hijoDerecho = derecho;
@@ -1181,7 +1181,9 @@ public class Nodo {
             }
 
         }
+
         return etiqueta;
     }
+
 
 }

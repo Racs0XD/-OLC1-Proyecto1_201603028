@@ -9,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -133,10 +136,10 @@ public class Reportes {
                     String S = Nt_Sep[2];
                     Nterminal += Nt_Sep[0] + "={" + Nt_Sep[1] + "}=" + Nt_Sep[2] + ", ";
                 }
-                
-                if(Nterminal.equals("")){
+
+                if (Nterminal.equals("")) {
                     pw.println("<tr><td>" + val + "</td><td>" + "--" + "</td></tr>\n");
-                }else{
+                } else {
                     pw.println("<tr><td>" + val + "</td><td>" + Nterminal + "</td></tr>\n");
                 }
             }
@@ -277,6 +280,57 @@ public class Reportes {
             }
         }
 
+    }
+
+    public String generarGraphviz(AFND afnd) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("digraph AFND {\n");
+
+        // Generar nodos y etiquetas
+        sb.append(generarNodosGraphviz(afnd.getEstadoInicial(), new HashSet<>()));
+        sb.append(generarNodosGraphviz(afnd.getEstadoFinal(), new HashSet<>()));
+
+        // Generar transiciones
+        sb.append(generarTransicionesGraphviz(afnd.getEstadoInicial(), new HashSet<>()));
+
+        sb.append("}\n");
+        return sb.toString();
+    }
+
+    private String generarNodosGraphviz(Estado estado, Set<Integer> visitados) {
+        if (visitados.contains(estado.id)) {
+            return "";
+        }
+        visitados.add(estado.id);
+
+        String color = estado.esFinal ? "green" : "white";
+        String forma = estado.esFinal ? "doublecircle" : "circle";
+        String label = estado.valor != null ? estado.valor : "";
+
+        return "node" + estado.id + " [shape=" + forma + " color=" + color + " label=\"" + label + "\"];\n"
+                + generarNodosGraphviz(estado, estado.transiciones, visitados);
+    }
+
+    private String generarNodosGraphviz(Estado estado, List<Estado> transiciones, Set<Integer> visitados) {
+        StringBuilder sb = new StringBuilder();
+        for (Estado transicion : transiciones) {
+            sb.append(generarNodosGraphviz(transicion, visitados));
+        }
+        return sb.toString();
+    }
+
+    private String generarTransicionesGraphviz(Estado estado, Set<Integer> visitados) {
+        if (visitados.contains(estado.id)) {
+            return "";
+        }
+        visitados.add(estado.id);
+
+        StringBuilder sb = new StringBuilder();
+        for (Estado transicion : estado.transiciones) {
+            sb.append("node" + estado.id + " -> node" + transicion.id + ";\n");
+            sb.append(generarTransicionesGraphviz(transicion, visitados));
+        }
+        return sb.toString();
     }
 
 }

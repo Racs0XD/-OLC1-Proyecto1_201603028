@@ -206,11 +206,11 @@ public static void graficarArbol(Nodo act, String nombre){
                 Tabla_Transi.add(listaConNombreR);
             }
             act.getSO();
+            act.getAFND();
             Reportes rep = new Reportes();
             rep.Graficar_Tabla_Sig(Tabla_Sig);
             rep.Tabla_Transiciones(act.getR(),nombre);
             rep.Aceptacion(act.getL(), act.getR(),nombre);
-            
             
             act.clearL();
 
@@ -428,8 +428,7 @@ class CUP$parser$actions {
             prime=valor.getPrimero();
         }
         ulti=nuevo_final.getUltimo();
-        Nodo nueva_raiz = new Nodo(valor,nuevo_final,".",parser.contID,0,"N",primero,ultimo);
-        parser.Raiz=nueva_raiz;
+        Nodo nueva_raiz = new Nodo(valor,nuevo_final,".",parser.contID,0,"N",primero,ultimo);       
         graficarArbol(nueva_raiz,a);
         IDS=1;
 

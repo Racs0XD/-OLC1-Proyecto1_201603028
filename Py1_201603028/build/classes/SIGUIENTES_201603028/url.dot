@@ -25,7 +25,7 @@ nodo0 [ label =<<table border='0' cellborder='1' color='blue' cellspacing='0'>
 
 <tr><td>"."</td><td>10</td><td>11</td></tr>
 
-<tr><td>minuscula</td><td>11</td><td>11,12</td></tr>
+<tr><td>minuscula</td><td>11</td><td>11,12,12</td></tr>
 
 <tr><td>#</td><td>12</td><td>--</td></tr>
 

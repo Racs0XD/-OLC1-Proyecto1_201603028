@@ -29,7 +29,7 @@ nodo0 [ label =<<table border='0' cellborder='1' color='blue' cellspacing='0'>
 
 <tr><td>"o"</td><td>12</td><td>13</td></tr>
 
-<tr><td>"m"</td><td>13</td><td>14</td></tr>
+<tr><td>"m"</td><td>13</td><td>14,14</td></tr>
 
 <tr><td>#</td><td>14</td><td>--</td></tr>
 

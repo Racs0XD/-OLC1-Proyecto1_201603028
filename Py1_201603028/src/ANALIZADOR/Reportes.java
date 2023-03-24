@@ -344,7 +344,7 @@ public class Reportes {
         htmlBuilder.append(".nombre {border: 1px solid #00CCCC; padding: 10px; margin-top: 20px;}\n");
         htmlBuilder.append("</style></head><body>\n");
         htmlBuilder.append("<h1 style='color: #00CCCC;'>Errores</h1>\n");
-        htmlBuilder.append("<p>Nombre del archivo: errores</p>\n");
+        htmlBuilder.append("<p>Errores</p>\n");
         htmlBuilder.append("<table>\n");
         htmlBuilder.append("<tr><th>#</th><th>Tipo de Error</th><th>Descripción</th><th>Línea</th><th>Columna</th></tr>\n");
         for (int i = 0; i < errores.size(); i++) {
